@@ -2,6 +2,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sintactico.h>
+/* #include "parser.hpp" 
+extern int yyparse();
+*/
 
 using namespace std;
 
