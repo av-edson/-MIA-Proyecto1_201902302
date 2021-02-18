@@ -2,18 +2,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sintactico.h>
-/* #include "parser.hpp" 
-extern int yyparse();
-*/
-
-using namespace std;
+#include "sin.tab.h"
 
 %}
 
 /*----------------------------------------------------- SECCION DE DEFINICIONES----------------------------------- */
-%option c++
-%option outfile="Scanner.cpp"
 %option case-insensitive
 %option noyywrap
 
@@ -81,7 +74,7 @@ E_L         "l"
 E_FAST      "fast"
 E_FULL      "full"
 E_PATH1      {SLASH}{SEMIROUTE}+{NAME_FILE}
-E_PATH2     \"({LETRAS}|{ENTERO}|{SLASH}|" ")+{NAME_FILE}\"
+E_PATH2     \"{SLASH}({LETRAS}|{ENTERO}|{SLASH}|" ")+{NAME_FILE}\"
 E_NAME1      {LETRAS}({LETRAS}|{ENTERO})*
 E_NAME2     \"{LETRAS}({LETRAS}|{ENTERO}|" ")*\"
 E_IDES    {ENTERO}[a-z]{1,2}
@@ -93,7 +86,7 @@ SEMIROUTE   {LETRAS}{SLASH}
 
 DISK_EXTENTION1  "dk"
 DISK_EXTENTION2  "disk"
-NAME_FILE   {LETRAS}({LETRAS}|{ENTERO})+"."({DISK_EXTENTION2}|{DISK_EXTENTION1})
+NAME_FILE   {LETRAS}({LETRAS}|{ENTERO})*"."({DISK_EXTENTION2}|{DISK_EXTENTION1})
 DELIMITADOR [\t\r\f" "]
 COMENTARIO  #([^#|^\n|^\r\n])*(#)?
 
@@ -104,17 +97,17 @@ COMENTARIO  #([^#|^\n|^\r\n])*(#)?
 /*----------------------------------------------------- SECCION DE REGLAS -------------------------------------*/
 %%
 
-{ENTERO} {printf("Numero Entero %s ", yytext);}
+{ENTERO} {yylval.number = atoi(yytext); return(number);}
 {REAL} {printf("Numero Real %s ", yytext);}
 {NEGATIVO} {printf("Numero Negativo %s ", yytext);}
 
-
-{F_MKDISK} {printf("Funcion mkdisk %s", yytext);}
-{F_RMDISK} {printf("Funcion rmdisk %s", yytext);}
-{F_FDISK} {printf("Funcion fdisk %s", yytext);}
-{F_MOUNT}   {printf("Funcion mount %s", yytext);}   
-{F_UNMOUNT} {printf("Funcion unmount %s", yytext);}
-{F_MKFS}    {printf("Funcion mkfs %s", yytext);}
+"show"      {return(show);}
+{F_MKDISK} {return(mkdisk);}
+{F_RMDISK} {return(rmdisk);}
+{F_FDISK} {return(fdisk);}
+{F_MOUNT}   {return(mount);}   
+{F_UNMOUNT} {return(unmount);}
+{F_MKFS}    {return(mkfs);}
 
 {F_LOGIN}   {printf("Funcion login %s ", yytext);}
 {F_LOGOUT}  {printf("Funcion logout %s ", yytext);}
@@ -137,25 +130,25 @@ COMENTARIO  #([^#|^\n|^\r\n])*(#)?
 {F_CHGRP}   {printf("Funcion chgrp %s", yytext);}
 {F_PAUSE}   {printf("Funcion pause %s", yytext);}
 
-{P_SIZE}    {printf("Parametro size %s ", yytext);}
-{P_FIT}    {printf("Parametro fit %s ", yytext);}
-{P_UNITS}    {printf("Parametro units %s ", yytext);}
-{P_PATH}    {printf("Parametro path %s ", yytext);}
-{P_TYPE}    {printf("Parametro type %s ", yytext);}
-{P_DELETE}    {printf("Parametro delete %s ", yytext);}
-{P_NAME}    {printf("Parametro name %s ", yytext);}
-{P_ADD}    {printf("Parametro add %s ", yytext);}
-{P_ID}    {printf("Parametro id %s ", yytext);}
-{P_FORMAT}    {printf("Parametro format %s ", yytext);}
+{P_SIZE}    {return(size);}
+{P_FIT}     {return(fit);}
+{P_UNITS}   {return(units);}
+{P_PATH}    {return(path);}
+{P_TYPE}    {}
+{P_DELETE}  {}
+{P_NAME}    {}
+{P_ADD}     {}
+{P_ID}      {}
+{P_FORMAT}  {}
 
 
-{E_PATH1}    {printf("ruta normal %s ", yytext);}
-{E_PATH2}    {printf("ruta encerrada %s ", yytext);}
-{E_BF}      {printf("Entrada bf %s ", yytext);}
-{E_FF}      {printf("Entrada ff %s ", yytext);}
-{E_WF}      {printf("Entrada  wf%s ", yytext);}   
-{E_KILOBY}  {printf("Entrada kb %s ", yytext);}   
-{E_MEGBY}   {printf("Entrada mb %s ", yytext);}
+{E_PATH1}    {sscanf(yytext, "%s", yylval.text); return(e_path);}
+{E_PATH2}    {strcpy(yylval.text, yytext); return(e_path);}
+{E_BF}      {sscanf(yytext, "%s", yylval.entrace); return(e_fit);}
+{E_FF}      {sscanf(yytext, "%s", yylval.entrace); return(e_fit);}
+{E_WF}      {sscanf(yytext, "%s", yylval.entrace); return(e_fit);}     
+{E_KILOBY}  {sscanf(yytext, "%s", yylval.entrace); return(e_units);}   
+{E_MEGBY}   {sscanf(yytext, "%s", yylval.entrace); return(e_units);}
 {E_E}       {printf("Entrada  E %s ", yytext);}
 {E_P}       {printf("Entrada  P %s ", yytext);}
 {E_L}       {printf("Entrada  L %s ", yytext);}
@@ -170,8 +163,8 @@ COMENTARIO  #([^#|^\n|^\r\n])*(#)?
 
 {DELIMITADOR}           {}
 {COMENTARIO}    {printf("Comentario %s\n", yytext);}
-{IGUAL}     {printf("IGUAL %s", yytext);}
-.               {printf("Caracter %s\n", yytext);}
+{IGUAL}     {return(igual);}
+.               {printf("Caracter %s no admitido\n ", yytext);}
 
 
 %%
