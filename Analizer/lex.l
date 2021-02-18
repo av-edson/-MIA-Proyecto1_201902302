@@ -98,8 +98,8 @@ COMENTARIO  #([^#|^\n|^\r\n])*(#)?
 %%
 
 {ENTERO} {yylval.number = atoi(yytext); return(number);}
-{REAL} {printf("Numero Real %s ", yytext);}
-{NEGATIVO} {printf("Numero Negativo %s ", yytext);}
+{REAL} {yylval.number = atoi(yytext); return(number);}
+{NEGATIVO} {yylval.number = atoi(yytext); return(number);}
 
 "show"      {return(show);}
 {F_MKDISK} {return(mkdisk);}
@@ -134,11 +134,11 @@ COMENTARIO  #([^#|^\n|^\r\n])*(#)?
 {P_FIT}     {return(fit);}
 {P_UNITS}   {return(units);}
 {P_PATH}    {return(path);}
-{P_TYPE}    {}
-{P_DELETE}  {}
-{P_NAME}    {}
-{P_ADD}     {}
-{P_ID}      {}
+{P_TYPE}    {return(type);}
+{P_DELETE}  {return(delete);}
+{P_NAME}    {return(name);}
+{P_ADD}     {return(add);}
+{P_ID}      {return(id);}
 {P_FORMAT}  {}
 
 
@@ -149,15 +149,15 @@ COMENTARIO  #([^#|^\n|^\r\n])*(#)?
 {E_WF}      {sscanf(yytext, "%s", yylval.entrace); return(e_fit);}     
 {E_KILOBY}  {sscanf(yytext, "%s", yylval.entrace); return(e_units);}   
 {E_MEGBY}   {sscanf(yytext, "%s", yylval.entrace); return(e_units);}
-{E_E}       {printf("Entrada  E %s ", yytext);}
-{E_P}       {printf("Entrada  P %s ", yytext);}
-{E_L}       {printf("Entrada  L %s ", yytext);}
-{E_FAST}       {printf("Entrada  fast %s ", yytext);}
-{E_FULL}       {printf("Entrada  full %s ", yytext);}
-{E_BYTE}    {printf("Entrada  by%s ", yytext);}
-{E_NAME1}    {printf("Entrada  nombre1 %s ", yytext);}
-{E_NAME2}    {printf("Entrada  nombre2 %s ", yytext);}
-{E_IDES}      {printf("Un IDE %s\n", yytext);}
+{E_E}       {sscanf(yytext, "%s", yylval.entrace); return(e_type);}
+{E_P}       {sscanf(yytext, "%s", yylval.entrace); return(e_type);}
+{E_L}       {sscanf(yytext, "%s", yylval.entrace); return(e_type);}
+{E_FAST}       {sscanf(yytext, "%s", yylval.entrace); return(e_delete);}
+{E_FULL}       {sscanf(yytext, "%s", yylval.entrace); return(e_delete);}
+{E_BYTE}    {sscanf(yytext, "%s", yylval.entrace); return(e_units);}
+{E_NAME1}    {strcpy(yylval.text, yytext); return(e_name);}
+{E_NAME2}    {strcpy(yylval.text, yytext); return(e_name);}
+{E_IDES}      {strcpy(yylval.text, yytext); return(e_id);}
 
 
 

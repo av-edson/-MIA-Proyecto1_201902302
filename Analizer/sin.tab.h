@@ -61,10 +61,19 @@ extern int yydebug;
     units = 267,
     path = 268,
     igual = 269,
-    number = 270,
-    e_path = 271,
-    e_fit = 272,
-    e_units = 273
+    type = 270,
+    delete = 271,
+    name = 272,
+    add = 273,
+    id = 274,
+    number = 275,
+    e_path = 276,
+    e_fit = 277,
+    e_units = 278,
+    e_type = 279,
+    e_delete = 280,
+    e_name = 281,
+    e_id = 282
   };
 #endif
 
@@ -72,14 +81,14 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 42 "sin.y"
+#line 51 "sin.y"
 
     int number;
     char text[200];
     char entrace[12];
     int other;
 
-#line 83 "sin.tab.h"
+#line 92 "sin.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

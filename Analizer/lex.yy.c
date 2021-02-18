@@ -793,12 +793,12 @@ YY_RULE_SETUP
 case 2:
 YY_RULE_SETUP
 #line 101 "lex.l"
-{printf("Numero Real %s ", yytext);}
+{yylval.number = atoi(yytext); return(number);}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
 #line 102 "lex.l"
-{printf("Numero Negativo %s ", yytext);}
+{yylval.number = atoi(yytext); return(number);}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
@@ -953,27 +953,27 @@ YY_RULE_SETUP
 case 34:
 YY_RULE_SETUP
 #line 137 "lex.l"
-{}
+{return(type);}
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
 #line 138 "lex.l"
-{}
+{return(delete);}
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
 #line 139 "lex.l"
-{}
+{return(name);}
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
 #line 140 "lex.l"
-{}
+{return(add);}
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
 #line 141 "lex.l"
-{}
+{return(id);}
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
@@ -1018,47 +1018,47 @@ YY_RULE_SETUP
 case 47:
 YY_RULE_SETUP
 #line 152 "lex.l"
-{printf("Entrada  E %s ", yytext);}
+{sscanf(yytext, "%s", yylval.entrace); return(e_type);}
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
 #line 153 "lex.l"
-{printf("Entrada  P %s ", yytext);}
+{sscanf(yytext, "%s", yylval.entrace); return(e_type);}
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
 #line 154 "lex.l"
-{printf("Entrada  L %s ", yytext);}
+{sscanf(yytext, "%s", yylval.entrace); return(e_type);}
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
 #line 155 "lex.l"
-{printf("Entrada  fast %s ", yytext);}
+{sscanf(yytext, "%s", yylval.entrace); return(e_delete);}
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
 #line 156 "lex.l"
-{printf("Entrada  full %s ", yytext);}
+{sscanf(yytext, "%s", yylval.entrace); return(e_delete);}
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
 #line 157 "lex.l"
-{printf("Entrada  by%s ", yytext);}
+{sscanf(yytext, "%s", yylval.entrace); return(e_units);}
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
 #line 158 "lex.l"
-{printf("Entrada  nombre1 %s ", yytext);}
+{strcpy(yylval.text, yytext); return(e_name);}
 	YY_BREAK
 case 54:
 YY_RULE_SETUP
 #line 159 "lex.l"
-{printf("Entrada  nombre2 %s ", yytext);}
+{strcpy(yylval.text, yytext); return(e_name);}
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
 #line 160 "lex.l"
-{printf("Un IDE %s\n", yytext);}
+{strcpy(yylval.text, yytext); return(e_id);}
 	YY_BREAK
 case 56:
 YY_RULE_SETUP
