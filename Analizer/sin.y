@@ -1,11 +1,13 @@
 %{
 #include <stdio.h>
 #include <iostream>
+#include <array>
 #include "../Estructs/arguments.cpp"
 
 struct argumentos data;
 using namespace std;
 
+std::array<std::string, 11> getDatos();
 int yylex();
 int yyerror(const char* msg){
         cout<< "Syntax Error" << msg << endl;
@@ -114,3 +116,8 @@ UNMOUNT_F: unmount id igual e_id {
 
 
 %%
+std::array<std::string, 11> getDatos(){
+    std::array<string, 11> datos;
+    datos = privateData(&data);
+    return datos;
+}

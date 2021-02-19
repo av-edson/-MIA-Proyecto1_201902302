@@ -2,6 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <iostream>
+#include <array>
+
+using namespace std;
 
 struct argumentos
 {
@@ -107,3 +110,47 @@ void showArguments(struct argumentos *info){
     printf(" delete size-- %s", info->delet);
 }
 
+std::array<std::string, 11> privateData(struct argumentos *info){
+    std::array<string, 11> datos;
+    for (int x = 0; x < 11; x++)
+    {
+        switch (x)
+        {
+        case 1:
+            datos[x] = to_string(info->function);
+            break;
+        case 2:
+            datos[x] = to_string(info->size);
+            break;
+        case 3:
+            datos[x] = info->fit;
+            break;
+        case 4:
+            datos[x] = info->units;
+            break;
+        case 5:
+            datos[x] = info->path;
+            break;
+        case 6:
+            datos[x] = info->partition_type;
+            break;
+        case 7:
+            datos[x] = info->name_disk;
+            break;
+        case 8:
+            datos[x] = to_string(info->add_size);
+            break;
+        case 9:
+            datos[x] = info->disk_ides;
+            break;
+        case 10:
+            datos[x] = info->format;
+            break;
+        case 11:
+            datos[x] = info->delet;
+            break;
+        }
+    }
+    
+    return datos;
+}

@@ -81,7 +81,7 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 53 "sin.y"
+#line 55 "sin.y"
 
     int number;
     char text[200];

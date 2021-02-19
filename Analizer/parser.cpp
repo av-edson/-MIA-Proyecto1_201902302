@@ -70,18 +70,20 @@
 
 #include <stdio.h>
 #include <iostream>
+#include <array>
 #include "../Estructs/arguments.cpp"
 
 struct argumentos data;
 using namespace std;
 
+std::array<std::string, 11> getDatos();
 int yylex();
 int yyerror(const char* msg){
         cout<< "Syntax Error" << msg << endl;
         return 0;
 }
 
-#line 85 "parser.cpp"
+#line 87 "parser.cpp"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -161,14 +163,14 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 53 "sin.y"
+#line 55 "sin.y"
 
     int number;
     char text[200];
     char entrace[12];
     int other;
 
-#line 172 "parser.cpp"
+#line 174 "parser.cpp"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -546,9 +548,9 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    62,    62,    63,    64,    65,    66,    67,    70,    72,
-      73,    76,    78,    79,    80,    83,    87,    88,    89,    92,
-      94,    95,    96,    97,    98,    99,   100,   105,   107,   112
+       0,    64,    64,    65,    66,    67,    68,    69,    72,    74,
+      75,    78,    80,    81,    82,    85,    89,    90,    91,    94,
+      96,    97,    98,    99,   100,   101,   102,   107,   109,   114
 };
 #endif
 
@@ -1380,119 +1382,119 @@ yyreduce:
   switch (yyn)
     {
   case 2:
-#line 62 "sin.y"
+#line 64 "sin.y"
             {showArguments(&data);}
-#line 1386 "parser.cpp"
+#line 1388 "parser.cpp"
     break;
 
   case 11:
-#line 76 "sin.y"
+#line 78 "sin.y"
                             { 
                             cleanStruct(&data, 1); addSize((yyvsp[0].number), &data, 1);}
-#line 1393 "parser.cpp"
+#line 1395 "parser.cpp"
     break;
 
   case 12:
-#line 78 "sin.y"
+#line 80 "sin.y"
                             {cleanStruct(&data, 1); addPath((yyvsp[0].text), &data, 1);}
-#line 1399 "parser.cpp"
+#line 1401 "parser.cpp"
     break;
 
   case 13:
-#line 79 "sin.y"
+#line 81 "sin.y"
                             {cleanStruct(&data, 1); addFit((yyvsp[0].entrace), &data, 1);}
-#line 1405 "parser.cpp"
+#line 1407 "parser.cpp"
     break;
 
   case 14:
-#line 80 "sin.y"
+#line 82 "sin.y"
                               {cleanStruct(&data, 1); addUnits((yyvsp[0].entrace), &data, 1);
         }
-#line 1412 "parser.cpp"
+#line 1414 "parser.cpp"
     break;
 
   case 15:
-#line 83 "sin.y"
+#line 85 "sin.y"
                                  {
                           cleanStruct(&data, 2); addPath((yyvsp[0].text), &data, 2);
 }
-#line 1420 "parser.cpp"
+#line 1422 "parser.cpp"
     break;
 
   case 19:
-#line 92 "sin.y"
+#line 94 "sin.y"
                             {
           cleanStruct(&data, 3); addSize((yyvsp[0].number), &data, 3);}
-#line 1427 "parser.cpp"
+#line 1429 "parser.cpp"
     break;
 
   case 20:
-#line 94 "sin.y"
+#line 96 "sin.y"
                               {cleanStruct(&data, 3); addUnits((yyvsp[0].entrace), &data, 3);}
-#line 1433 "parser.cpp"
+#line 1435 "parser.cpp"
     break;
 
   case 21:
-#line 95 "sin.y"
+#line 97 "sin.y"
                             {cleanStruct(&data, 3); addPath((yyvsp[0].text), &data, 3);}
-#line 1439 "parser.cpp"
+#line 1441 "parser.cpp"
     break;
 
   case 22:
-#line 96 "sin.y"
+#line 98 "sin.y"
                             {cleanStruct(&data, 3); addType((yyvsp[0].entrace), &data, 3);}
-#line 1445 "parser.cpp"
+#line 1447 "parser.cpp"
     break;
 
   case 23:
-#line 97 "sin.y"
+#line 99 "sin.y"
                             {cleanStruct(&data, 3); addFit((yyvsp[0].entrace), &data, 3);}
-#line 1451 "parser.cpp"
+#line 1453 "parser.cpp"
     break;
 
   case 24:
-#line 98 "sin.y"
+#line 100 "sin.y"
                                {cleanStruct(&data, 3); addDelete((yyvsp[0].entrace), &data, 3);}
-#line 1457 "parser.cpp"
+#line 1459 "parser.cpp"
     break;
 
   case 25:
-#line 99 "sin.y"
+#line 101 "sin.y"
                              {cleanStruct(&data, 3); addNameDisk((yyvsp[0].text), &data, 3);}
-#line 1463 "parser.cpp"
+#line 1465 "parser.cpp"
     break;
 
   case 26:
-#line 100 "sin.y"
+#line 102 "sin.y"
                             {cleanStruct(&data, 3); addSizeAdd((yyvsp[0].number), &data, 3);
         }
-#line 1470 "parser.cpp"
+#line 1472 "parser.cpp"
     break;
 
   case 27:
-#line 105 "sin.y"
+#line 107 "sin.y"
                                                    {
             cleanStruct(&data, 4); addPath((yyvsp[-3].text), &data, 4); addNameDisk((yyvsp[0].text), &data, 4);}
-#line 1477 "parser.cpp"
+#line 1479 "parser.cpp"
     break;
 
   case 28:
-#line 107 "sin.y"
+#line 109 "sin.y"
                                                      {
             cleanStruct(&data, 4); addPath((yyvsp[0].text), &data, 4); addNameDisk((yyvsp[-3].text), &data, 4); 
             }
-#line 1485 "parser.cpp"
+#line 1487 "parser.cpp"
     break;
 
   case 29:
-#line 112 "sin.y"
+#line 114 "sin.y"
                                  {
                 cleanStruct(&data, 5); addDiskIde((yyvsp[0].entrace), &data, 5);}
-#line 1492 "parser.cpp"
+#line 1494 "parser.cpp"
     break;
 
 
-#line 1496 "parser.cpp"
+#line 1498 "parser.cpp"
 
       default: break;
     }
@@ -1724,5 +1726,10 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 116 "sin.y"
+#line 118 "sin.y"
 
+std::array<std::string, 11> getDatos(){
+    std::array<string, 11> datos;
+    datos = privateData(&data);
+    return datos;
+}
