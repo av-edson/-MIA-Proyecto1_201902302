@@ -34,8 +34,8 @@
 /* Undocumented macros, especially those whose name start with YY_,
    are private implementation details.  Do not rely on them.  */
 
-#ifndef YY_YY_SIN_TAB_H_INCLUDED
-# define YY_YY_SIN_TAB_H_INCLUDED
+#ifndef YY_YY_PARSER_H_INCLUDED
+# define YY_YY_PARSER_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
@@ -62,10 +62,10 @@ extern int yydebug;
     path = 268,
     igual = 269,
     type = 270,
-    delete = 271,
-    name = 272,
-    add = 273,
-    id = 274,
+    name = 271,
+    add = 272,
+    id = 273,
+    dele = 274,
     number = 275,
     e_path = 276,
     e_fit = 277,
@@ -81,14 +81,14 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 51 "sin.y"
+#line 53 "sin.y"
 
     int number;
     char text[200];
     char entrace[12];
     int other;
 
-#line 92 "sin.tab.h"
+#line 92 "parser.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -101,4 +101,4 @@ extern YYSTYPE yylval;
 
 int yyparse (void);
 
-#endif /* !YY_YY_SIN_TAB_H_INCLUDED  */
+#endif /* !YY_YY_PARSER_H_INCLUDED  */

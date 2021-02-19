@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <iostream>
 
 struct argumentos
 {
@@ -10,11 +11,11 @@ struct argumentos
     char units[2];
     char path[200];
     char partition_type[3];
-    char delete[10];
     char name_disk[100];
     int add_size;
     char disk_ides[20];
     char format[3];
+    char delet[15];
 };
 
 void cleanStruct(struct argumentos *entrace, int type){
@@ -25,11 +26,11 @@ void cleanStruct(struct argumentos *entrace, int type){
         strcpy(entrace->units, "");
         strcpy(entrace->path, "");
         strcpy(entrace->partition_type, "");
-        strcpy(entrace->delete, "");
         strcpy(entrace->name_disk, "");
         entrace->add_size = -1;
         strcpy(entrace->disk_ides, "");
         strcpy(entrace->format, "");
+        strcpy(entrace->delet, "");
         printf(" estructura limpiada ");
     }
 }
@@ -64,11 +65,6 @@ void addType(char *typee, struct argumentos *info, int type){
     printf("    prtition type added--%s", info->partition_type);
 }
 
-void addDelete(char *delete, struct argumentos *info, int type){
-    strcpy(info->delete, delete);
-    info->function = type;
-    printf("    delete added--%s", info->delete);
-}
 
 void addNameDisk(char *names, struct argumentos *info, int type){
     strcpy(info->name_disk, names);
@@ -88,6 +84,12 @@ void addDiskIde(char *id, struct argumentos *info, int type){
     printf("    id disk added--%s", info->disk_ides);
 }
 
+void addDelete(char *del, struct argumentos *info, int type){
+    strcpy(info->delet, del);
+    info->function = type;
+    printf("    delete size added--%s", info->delet);
+}
+
 void addFormat(char format);
 
 void showArguments(struct argumentos *info){
@@ -98,10 +100,10 @@ void showArguments(struct argumentos *info){
     printf(" units-- %s", info->units);
     printf(" path-- %s \n", info->path);
     printf(" partition type-- %s", info->partition_type);
-    printf(" delete size-- %s", info->delete);
     printf(" name disk-- %s", info->name_disk);
     printf(" add size-- %d", info->add_size);
     printf(" disk ides-- %s", info->disk_ides);
     printf(" format type-- %s", info->format);
-    printf("\n");
+    printf(" delete size-- %s", info->delet);
 }
+

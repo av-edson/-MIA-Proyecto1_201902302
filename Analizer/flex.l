@@ -2,7 +2,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "sin.tab.h"
+#include <iostream>
+#include "parser.h"
+
+using namespace std;
 
 %}
 
@@ -82,7 +85,7 @@ E_IDES    {ENTERO}[a-z]{1,2}
 /* OTROS */
 IGUAL       "="
 SLASH       "/"
-SEMIROUTE   {LETRAS}{SLASH}
+SEMIROUTE   {LETRAS}({LETRAS}|{DIGITO})*{SLASH}
 
 DISK_EXTENTION1  "dk"
 DISK_EXTENTION2  "disk"
@@ -101,7 +104,7 @@ COMENTARIO  #([^#|^\n|^\r\n])*(#)?
 {REAL} {yylval.number = atoi(yytext); return(number);}
 {NEGATIVO} {yylval.number = atoi(yytext); return(number);}
 
-"show"      {return(show);}
+ "show"      {return(show);}
 {F_MKDISK} {return(mkdisk);}
 {F_RMDISK} {return(rmdisk);}
 {F_FDISK} {return(fdisk);}
@@ -135,14 +138,14 @@ COMENTARIO  #([^#|^\n|^\r\n])*(#)?
 {P_UNITS}   {return(units);}
 {P_PATH}    {return(path);}
 {P_TYPE}    {return(type);}
-{P_DELETE}  {return(delete);}
 {P_NAME}    {return(name);}
+{P_DELETE}  {return(dele);}
 {P_ADD}     {return(add);}
 {P_ID}      {return(id);}
 {P_FORMAT}  {}
 
 
-{E_PATH1}    {sscanf(yytext, "%s", yylval.text); return(e_path);}
+{E_PATH1}    {strcpy(yylval.text, yytext); return(e_path);}
 {E_PATH2}    {strcpy(yylval.text, yytext); return(e_path);}
 {E_BF}      {sscanf(yytext, "%s", yylval.entrace); return(e_fit);}
 {E_FF}      {sscanf(yytext, "%s", yylval.entrace); return(e_fit);}
