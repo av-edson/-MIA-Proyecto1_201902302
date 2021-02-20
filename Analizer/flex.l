@@ -105,6 +105,7 @@ COMENTARIO  #([^#|^\n|^\r\n])*(#)?
 {NEGATIVO} {yylval.number = atoi(yytext); return(number);}
 
  "show"      {return(show);}
+{F_PAUSE}   {return(pausado);}
 {F_MKDISK} {return(mkdisk);}
 {F_RMDISK} {return(rmdisk);}
 {F_FDISK} {return(fdisk);}
@@ -131,7 +132,6 @@ COMENTARIO  #([^#|^\n|^\r\n])*(#)?
 {F_FIND}    {printf("Funcion find %s", yytext);}
 {F_CHOWN}   {printf("Funcion chown %s", yytext);}
 {F_CHGRP}   {printf("Funcion chgrp %s", yytext);}
-{F_PAUSE}   {printf("Funcion pause %s", yytext);}
 
 {P_SIZE}    {return(size);}
 {P_FIT}     {return(fit);}

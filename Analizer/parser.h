@@ -50,30 +50,31 @@ extern int yydebug;
   enum yytokentype
   {
     show = 258,
-    mkdisk = 259,
-    rmdisk = 260,
-    fdisk = 261,
-    mount = 262,
-    unmount = 263,
-    mkfs = 264,
-    size = 265,
-    fit = 266,
-    units = 267,
-    path = 268,
-    igual = 269,
-    type = 270,
-    name = 271,
-    add = 272,
-    id = 273,
-    dele = 274,
-    number = 275,
-    e_path = 276,
-    e_fit = 277,
-    e_units = 278,
-    e_type = 279,
-    e_delete = 280,
-    e_name = 281,
-    e_id = 282
+    pausado = 259,
+    mkdisk = 260,
+    rmdisk = 261,
+    fdisk = 262,
+    mount = 263,
+    unmount = 264,
+    mkfs = 265,
+    size = 266,
+    fit = 267,
+    units = 268,
+    path = 269,
+    igual = 270,
+    type = 271,
+    name = 272,
+    add = 273,
+    id = 274,
+    dele = 275,
+    number = 276,
+    e_path = 277,
+    e_fit = 278,
+    e_units = 279,
+    e_type = 280,
+    e_delete = 281,
+    e_name = 282,
+    e_id = 283
   };
 #endif
 
@@ -81,14 +82,14 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 55 "sin.y"
+#line 56 "sin.y"
 
     int number;
     char text[200];
     char entrace[12];
     int other;
 
-#line 92 "parser.h"
+#line 93 "parser.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

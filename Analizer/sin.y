@@ -17,6 +17,7 @@ int yyerror(const char* msg){
 
 %define parse.error verbose
 %token <number> show
+%token <number> pausado
 
 
 
@@ -62,6 +63,7 @@ int yyerror(const char* msg){
 %%
 
 ACTION: show{showArguments(&data);}
+          | pausado {printf("           -> Presione Enter Para Continuar <- "); std::cin.get();}
           | MKDISK_F
           | RMDISK
           | FDISK_F

@@ -370,22 +370,22 @@ static const flex_int16_t yy_accept[193] =
         1,   58,   53,   52,   53,   47,   53,   45,   49,   46,
        48,   53,   53,   53,   53,    0,    0,   57,   57,    3,
         0,    0,   31,    0,    0,    0,    0,    0,   32,    0,
-        0,    1,   55,   53,   53,   42,   53,   53,   24,   53,
-       53,   53,   43,   53,   53,   53,   53,   53,   25,   53,
+        0,    1,   55,   53,   53,   42,   53,   53,   25,   53,
+       53,   53,   43,   53,   53,   53,   53,   53,   26,   53,
        53,   53,   53,   53,   44,    0,    0,    0,    0,   54,
         0,    0,    0,    0,    0,   39,   38,    0,    0,    0,
-        0,    0,    0,    0,    2,   55,   53,   19,   53,   53,
+        0,    0,    0,    0,    2,   55,   53,   20,   53,   53,
        53,   53,   53,   53,   53,   53,   53,   53,   53,   53,
 
-       53,   53,   53,   20,   22,   53,   53,   53,   53,   53,
+       53,   53,   53,   21,   23,   53,   53,   53,   53,   53,
         0,    0,    3,   37,    0,    0,    0,    0,    0,    0,
-        0,   53,   53,   53,   21,   50,   53,   26,   51,   53,
-       53,   53,   53,   10,   53,   53,   53,   53,   53,   53,
+        0,   53,   53,   53,   22,   50,   53,   27,   51,   53,
+       53,   53,   53,   11,   53,   53,   53,   53,   53,   53,
        53,    4,   53,    0,    0,    0,    0,   35,   33,   30,
-       34,    0,    0,    0,   28,   17,   27,    7,   11,   53,
-       23,   53,   53,   13,   15,    8,   29,   53,   14,   16,
-       53,    0,    0,    0,    0,   12,    5,   18,    6,   53,
-        0,    0,   36,    0,   40,    9,    0,   41,    0,    0,
+       34,    0,    0,    0,   29,   18,   28,    8,   12,   53,
+       24,   53,   53,   14,   16,    9,    5,   53,   15,   17,
+       53,    0,    0,    0,    0,   13,    6,   19,    7,   53,
+        0,    0,   36,    0,   40,   10,    0,   41,    0,    0,
        40,    0
 
     } ;
@@ -965,127 +965,127 @@ YY_RULE_SETUP
 case 5:
 YY_RULE_SETUP
 #line 108 "flex.l"
-{return(mkdisk);}
+{return(pausado);}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
 #line 109 "flex.l"
-{return(rmdisk);}
+{return(mkdisk);}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
 #line 110 "flex.l"
-{return(fdisk);}
+{return(rmdisk);}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
 #line 111 "flex.l"
-{return(mount);}   
+{return(fdisk);}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
 #line 112 "flex.l"
-{return(unmount);}
+{return(mount);}   
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
 #line 113 "flex.l"
-{return(mkfs);}
+{return(unmount);}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 115 "flex.l"
-{printf("Funcion login %s ", yytext);}
+#line 114 "flex.l"
+{return(mkfs);}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
 #line 116 "flex.l"
-{printf("Funcion logout %s ", yytext);}
+{printf("Funcion login %s ", yytext);}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
 #line 117 "flex.l"
-{printf("Funcion mkgrp %s ", yytext);}
+{printf("Funcion logout %s ", yytext);}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
 #line 118 "flex.l"
-{printf("Funcion rmgrp %s ", yytext);}
+{printf("Funcion mkgrp %s ", yytext);}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
 #line 119 "flex.l"
-{printf("Funcion mkurs %s ", yytext);}
+{printf("Funcion rmgrp %s ", yytext);}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
 #line 120 "flex.l"
-{printf("Funcion rmusr %s ", yytext);}
+{printf("Funcion mkurs %s ", yytext);}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 122 "flex.l"
-{printf("Funcion chmod %s ", yytext);}
+#line 121 "flex.l"
+{printf("Funcion rmusr %s ", yytext);}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
 #line 123 "flex.l"
-{printf("Funcion mkfile %s ", yytext);}
+{printf("Funcion chmod %s ", yytext);}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
 #line 124 "flex.l"
-{printf("Funcion cat %s ", yytext);}
+{printf("Funcion mkfile %s ", yytext);}
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
 #line 125 "flex.l"
-{printf("Funcion rem %s ", yytext);}
+{printf("Funcion cat %s ", yytext);}
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
 #line 126 "flex.l"
-{printf("Funcion edit %s ", yytext);}
+{printf("Funcion rem %s ", yytext);}
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
 #line 127 "flex.l"
-{printf("Funcion ren %s ", yytext);}
+{printf("Funcion edit %s ", yytext);}
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
 #line 128 "flex.l"
-{printf("Funcion mkdir %s ", yytext);}
+{printf("Funcion ren %s ", yytext);}
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
 #line 129 "flex.l"
-{printf("Funcion cp %s ", yytext);}
+{printf("Funcion mkdir %s ", yytext);}
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
 #line 130 "flex.l"
-{printf("Funcion mv %s ", yytext);}
+{printf("Funcion cp %s ", yytext);}
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
 #line 131 "flex.l"
-{printf("Funcion find %s", yytext);}
+{printf("Funcion mv %s ", yytext);}
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
 #line 132 "flex.l"
-{printf("Funcion chown %s", yytext);}
+{printf("Funcion find %s", yytext);}
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
 #line 133 "flex.l"
-{printf("Funcion chgrp %s", yytext);}
+{printf("Funcion chown %s", yytext);}
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
 #line 134 "flex.l"
-{printf("Funcion pause %s", yytext);}
+{printf("Funcion chgrp %s", yytext);}
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
