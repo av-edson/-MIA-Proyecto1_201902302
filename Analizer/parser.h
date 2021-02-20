@@ -51,30 +51,32 @@ extern int yydebug;
   {
     show = 258,
     pausado = 259,
-    mkdisk = 260,
-    rmdisk = 261,
-    fdisk = 262,
-    mount = 263,
-    unmount = 264,
-    mkfs = 265,
-    size = 266,
-    fit = 267,
-    units = 268,
-    path = 269,
-    igual = 270,
-    type = 271,
-    name = 272,
-    add = 273,
-    id = 274,
-    dele = 275,
-    number = 276,
-    e_path = 277,
-    e_fit = 278,
-    e_units = 279,
-    e_type = 280,
-    e_delete = 281,
-    e_name = 282,
-    e_id = 283
+    comentario = 260,
+    mkdisk = 261,
+    rmdisk = 262,
+    fdisk = 263,
+    mount = 264,
+    unmount = 265,
+    mkfs = 266,
+    size = 267,
+    fit = 268,
+    units = 269,
+    path = 270,
+    igual = 271,
+    type = 272,
+    name = 273,
+    add = 274,
+    id = 275,
+    dele = 276,
+    readfile = 277,
+    number = 278,
+    e_path = 279,
+    e_fit = 280,
+    e_units = 281,
+    e_type = 282,
+    e_delete = 283,
+    e_name = 284,
+    e_id = 285
   };
 #endif
 
@@ -82,14 +84,14 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 56 "sin.y"
+#line 59 "sin.y"
 
     int number;
     char text[200];
     char entrace[12];
     int other;
 
-#line 93 "parser.h"
+#line 95 "parser.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

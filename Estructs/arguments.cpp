@@ -19,10 +19,11 @@ struct argumentos
     char disk_ides[20];
     char format[3];
     char delet[15];
+    bool readFile;
 };
 
 void cleanStruct(struct argumentos *entrace, int type){
-    if (type != entrace->function){
+    if (type != entrace->function || type == -1){
         entrace->function = -1;
         entrace->size = -1;
         strcpy(entrace->fit, "");
@@ -34,63 +35,63 @@ void cleanStruct(struct argumentos *entrace, int type){
         strcpy(entrace->disk_ides, "");
         strcpy(entrace->format, "");
         strcpy(entrace->delet, "");
-        printf(" estructura limpiada ");
+        entrace->readFile = false;
     }
 }
 
 void addSize(int size,struct argumentos *info, int type){
     info->function = type;
     info->size = size;
-    printf(" tamano agregado--%d", info->size);
+    // printf(" tamano agregado--%d", info->size);
 }
 
 void addFit(char *fitt, struct argumentos *info, int type){
     info->function = type;
     strcpy(info->fit, fitt);
-    printf("  fit agregado--%s", info->fit);
+    // printf("  fit agregado--%s", info->fit);
 }
 
 void addUnits(char *units, struct argumentos *info, int type){
     strcpy(info->units, units);
     info->function = type;
-    printf("    units added--%s", info->units);
+    // printf("    units added--%s", info->units);
 }
 
 void addPath(char *pathh, struct argumentos *info, int type){
     strcpy(info->path, pathh);
     info->function = type;
-    printf("  added path--%s", info->path);
+    // printf("  added path--%s", info->path);
 }
 
 void addType(char *typee, struct argumentos *info, int type){
     strcpy(info->partition_type, typee);
     info->function = type;
-    printf("    prtition type added--%s", info->partition_type);
+    // printf("    prtition type added--%s", info->partition_type);
 }
 
 
 void addNameDisk(char *names, struct argumentos *info, int type){
     strcpy(info->name_disk, names);
     info->function = type;
-    printf("    nameDisk added--%s", info->name_disk);
+    // printf("    nameDisk added--%s", info->name_disk);
 }
 
 void addSizeAdd(int size_ad,struct argumentos *info, int type){
     info->add_size = size_ad;
     info->function = type;
-    printf(" add size agregado--%d", info->add_size);
+    // printf(" add size agregado--%d", info->add_size);
 }
 
 void addDiskIde(char *id, struct argumentos *info, int type){
     strcpy(info->disk_ides, id);
     info->function = type;
-    printf("    id disk added--%s", info->disk_ides);
+    // printf("    id disk added--%s", info->disk_ides);
 }
 
 void addDelete(char *del, struct argumentos *info, int type){
     strcpy(info->delet, del);
     info->function = type;
-    printf("    delete size added--%s", info->delet);
+    // printf("    delete size added--%s", info->delet);
 }
 
 void addFormat(char format);
@@ -116,37 +117,37 @@ std::array<std::string, 11> privateData(struct argumentos *info){
     {
         switch (x)
         {
-        case 1:
+        case 0:
             datos[x] = to_string(info->function);
             break;
-        case 2:
+        case 1:
             datos[x] = to_string(info->size);
             break;
-        case 3:
+        case 2:
             datos[x] = info->fit;
             break;
-        case 4:
+        case 3:
             datos[x] = info->units;
             break;
-        case 5:
+        case 4:
             datos[x] = info->path;
             break;
-        case 6:
+        case 5:
             datos[x] = info->partition_type;
             break;
-        case 7:
+        case 6:
             datos[x] = info->name_disk;
             break;
-        case 8:
+        case 7:
             datos[x] = to_string(info->add_size);
             break;
-        case 9:
+        case 8:
             datos[x] = info->disk_ides;
             break;
-        case 10:
+        case 11:
             datos[x] = info->format;
             break;
-        case 11:
+        case 10:
             datos[x] = info->delet;
             break;
         }

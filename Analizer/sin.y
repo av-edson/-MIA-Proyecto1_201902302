@@ -8,6 +8,7 @@ struct argumentos data;
 using namespace std;
 
 std::array<std::string, 11> getDatos();
+void cleanEs();
 int yylex();
 int yyerror(const char* msg){
         cout<< "Syntax Error" << msg << endl;
@@ -18,6 +19,7 @@ int yyerror(const char* msg){
 %define parse.error verbose
 %token <number> show
 %token <number> pausado
+%token <text> comentario
 
 
 
@@ -37,6 +39,7 @@ int yyerror(const char* msg){
 %token <other> add
 %token <other> id
 %token <other> dele
+%token <other> readfile
 
 /* entradas */
 %token <number> number
@@ -64,6 +67,8 @@ int yyerror(const char* msg){
 
 ACTION: show{showArguments(&data);}
           | pausado {printf("           -> Presione Enter Para Continuar <- "); std::cin.get();}
+          | comentario {printf(" com: %s\n", $1);}
+          | READFILE
           | MKDISK_F
           | RMDISK
           | FDISK_F
@@ -109,12 +114,11 @@ FDPARAM: size igual number  {
 MOUNT_F: mount path igual e_path name igual e_name {
             cleanStruct(&data, 4); addPath($4, &data, 4); addNameDisk($7, &data, 4);}
           | mount name igual e_name path igual e_path{
-            cleanStruct(&data, 4); addPath($7, &data, 4); addNameDisk($4, &data, 4); 
-            }
-;
+            cleanStruct(&data, 4); addPath($7, &data, 4); addNameDisk($4, &data, 4); };
 
-UNMOUNT_F: unmount id igual e_id {
-                cleanStruct(&data, 5); addDiskIde($4, &data, 5);};
+UNMOUNT_F: unmount id igual e_id { cleanStruct(&data, 5); addDiskIde($4, &data, 5);};
+
+READFILE: readfile path igual e_path{ cleanStruct(&data, 7); addPath($4, &data, 7);};
 
 
 %%
@@ -122,4 +126,8 @@ std::array<std::string, 11> getDatos(){
     std::array<string, 11> datos;
     datos = privateData(&data);
     return datos;
+}
+
+void cleanEs(){
+        cleanStruct(&data, -1);
 }

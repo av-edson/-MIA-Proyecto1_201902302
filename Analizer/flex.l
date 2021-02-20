@@ -89,7 +89,8 @@ SEMIROUTE   {LETRAS}({LETRAS}|{DIGITO})*{SLASH}
 
 DISK_EXTENTION1  "dk"
 DISK_EXTENTION2  "disk"
-NAME_FILE   {LETRAS}({LETRAS}|{ENTERO})*"."({DISK_EXTENTION2}|{DISK_EXTENTION1})
+SCRIPT_EXTENTION    "script"
+NAME_FILE   {LETRAS}({LETRAS}|{ENTERO})*"."({DISK_EXTENTION2}|{DISK_EXTENTION1}|{SCRIPT_EXTENTION})
 DELIMITADOR [\t\r\f" "]
 COMENTARIO  #([^#|^\n|^\r\n])*(#)?
 
@@ -105,6 +106,7 @@ COMENTARIO  #([^#|^\n|^\r\n])*(#)?
 {NEGATIVO} {yylval.number = atoi(yytext); return(number);}
 
  "show"      {return(show);}
+ "exec"     {return(readfile);}
 {F_PAUSE}   {return(pausado);}
 {F_MKDISK} {return(mkdisk);}
 {F_RMDISK} {return(rmdisk);}
@@ -165,7 +167,7 @@ COMENTARIO  #([^#|^\n|^\r\n])*(#)?
 
 
 {DELIMITADOR}           {}
-{COMENTARIO}    {printf("Comentario %s\n", yytext);}
+{COMENTARIO}    {strcpy(yylval.text, yytext); return(comentario);}
 {IGUAL}     {return(igual);}
 .               {printf("Caracter %s no admitido\n ", yytext);}
 
