@@ -2,16 +2,20 @@
 #include <stdlib.h>
 #include <fstream>
 #include <string.h>
-#include "Analizer/parser.h"
+#include <array>
 #include "Analizer/scanner.h"
+#include "Analizer/parser.h"
 
 
 using namespace std;
 extern int yyparse();
+extern std::array<std::string, 11> getDatos();
+
 
 void mostrarMenu();
 string pedirEntrada();
 void leerEntrada(string entrada);
+void mostrarDatos(std::array<std::string, 11> lista);
 
 int main(){
     mostrarMenu();
@@ -19,14 +23,13 @@ int main(){
     {
         leerEntrada(pedirEntrada());
     }
-    
     return 0;
 }
 
 void mostrarMenu(){
     ifstream file;
     string content;
-    file.open("encabezado.txt", ios::in);
+    file.open("Analizer/encabezado.txt", ios::in);
 
     if (file.fail())
     {
@@ -43,7 +46,7 @@ void mostrarMenu(){
 
 string pedirEntrada(){
     string input;
-    cout << "-> ";
+    cout << "\n-> ";
     getline(cin, input);
     return input;
 }
@@ -53,7 +56,20 @@ void leerEntrada(string entrada){
     YY_BUFFER_STATE buffer = yy_scan_string(entrada.c_str());
     if (yyparse() == 0)
     {
-        // cout << "jalo" << endl;
+        std::array<std::string, 11> datos;
+        datos = getDatos();
+        mostrarDatos(datos);
+    }else{
+        cout << "\n !!! ocurrio un error al leer !! \n";
     }
 }
 
+void mostrarDatos(std::array<std::string, 11> lista){
+    cout << endl;
+    for (int i = 0; i < 11; i++)
+    {
+       cout << lista[i] << "|";
+    }
+    cout << endl;
+    
+}
