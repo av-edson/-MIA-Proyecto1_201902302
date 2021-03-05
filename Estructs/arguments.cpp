@@ -58,7 +58,22 @@ void addUnits(char *units, struct argumentos *info, int type){
 }
 
 void addPath(char *pathh, struct argumentos *info, int type){
-    strcpy(info->path, pathh);
+
+    char aux[200];
+    int tam = strlen(pathh);
+    int indiceAux = 0;
+    for (int i = 0; i < tam; i++)
+    {
+        if (pathh[i] != '\"')
+        {
+            aux[indiceAux] = pathh[i];
+            indiceAux++;
+        }
+        
+    }
+    aux[indiceAux] = '\0';
+    
+    strcpy(info->path, aux);
     info->function = type;
     // printf("  added path--%s", info->path);
 }

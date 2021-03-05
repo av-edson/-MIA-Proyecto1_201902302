@@ -4,21 +4,25 @@ using namespace std;
 
 bool rootMkdisk(std::array<std::string, 11> args);
 
+
 void readArguments(std::array<std::string, 11> lista){
     string opcionFuncion = lista[0];
-    bool resultFuction;
+    bool resultFuction = false;
     switch (atoi(opcionFuncion.c_str()))
     {
     case 1:
         resultFuction = rootMkdisk(lista);
         break;
-    default:
+    case 2:
+        resultFuction = rmdiskF(lista[4]);
         break;
     }
 
     if (resultFuction)
     {
         cout << "       ->>> Operacion Exitosa! <<<- ";
+    }else{
+        cout << "         errr aca";
     }
     
 }

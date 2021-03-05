@@ -44,8 +44,49 @@ bool mkdiskF(int size, std::string fit, std::string units, std::string path){
         }
         
         cout << "   ->>> " << tempDisk.mbr_tamano << " -- " << " -- " << tempDisk.mbr_disk_signature << " -- " << tempDisk.disk_fit << " -- " << asctime(gmtime(&tempDisk.mbr_fecha_creacion));
+        // creando el archivo
+        FILE *archivo = fopen(path.c_str(), "wb");
+        fwrite("\0", 1, 1, archivo);
+        fseek(archivo, size -1, SEEK_SET);
+        fwrite("\0", 1, 1, archivo);
 
+        // escribiendo el mbr en el archivo
+        fseek(archivo, 0, SEEK_SET);
+        fwrite(&tempDisk, sizeof(tempDisk), 1, archivo);
+        fclose(archivo);
         return true;
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() <<'\n';
+        return false;
+    }
+    
+}
+
+bool rmdiskF(std::string path){
+    try
+    {   
+        if (FILE *archivo = fopen(path.c_str(), "r"))
+        {
+            cout << "  Se eliminara: " << path << " Confirmar(Y/N)? ";
+            string respuesta;
+            cin >> respuesta;
+            if (respuesta == "Y" | respuesta == "y")
+            {
+                remove(path.c_str());
+            }
+            else{
+                cout << "   ------ se cancelo la eliminacion --------\n";
+            }
+            return true;
+            
+        }
+        else{
+            cout << "       -> El Disco No Existe Para Eliminar <-  ";
+            return false;
+        }
+        
     }
     catch(const std::exception& e)
     {

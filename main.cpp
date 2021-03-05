@@ -63,6 +63,8 @@ void leerEntrada(string entrada){
         datos = getDatos();
         // pidiendo array de los datos almacenados por los analizadores
         mostrarDatos(datos);
+
+        
         // vemos si se trata de una lextura de archivo
         if (datos[0] == "7")
         {
@@ -82,12 +84,11 @@ void leerEntrada(string entrada){
 }
 
 void mostrarDatos(std::array<std::string, 11> lista){
-    for (int i = 0; i < 11; i++)
+    for (int i = 0; i < lista.size(); i++)
     {
        cout << i << ". " <<lista[i] << "|";
     }
-    cout << endl;
-    
+    cout << "\n";
 }
 
 void readFile(string path){

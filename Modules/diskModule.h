@@ -7,4 +7,6 @@
 
 bool mkdiskF(int size, std::string fit, std::string units, std::string path);
 
+bool rmdiskF(std::string path);
+
 #endif
