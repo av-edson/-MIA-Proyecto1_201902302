@@ -3,6 +3,7 @@
 using namespace std;
 
 bool rootMkdisk(std::array<std::string, 11> args);
+bool rootFdisk(std::array<std::string, 11> args);
 
 
 void readArguments(std::array<std::string, 11> lista){
@@ -16,13 +17,13 @@ void readArguments(std::array<std::string, 11> lista){
     case 2:
         resultFuction = rmdiskF(lista[4]);
         break;
+    case 3:
+        resultFuction = rootFdisk(lista);
     }
 
     if (resultFuction)
     {
         cout << "       ->>> Operacion Exitosa! <<<- ";
-    }else{
-        cout << "         errr aca";
     }
     
 }
@@ -50,4 +51,14 @@ bool rootMkdisk(std::array<std::string, 11> args){
     }
     
     
+}
+
+bool rootFdisk(std::array<std::string, 11> args){
+    try{
+        int tam = atoi(args[1].c_str());
+        return fdiskF(tam, args[3], args[4],args[5],args[2],args[6],atoi(args[7].c_str()),args[10]);
+    }catch (char pr){
+        cout << "   -- Ocurrio un error al crear la particion --" << endl;
+        return false;
+    }
 }
