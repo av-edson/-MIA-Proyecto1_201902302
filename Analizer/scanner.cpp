@@ -1002,7 +1002,7 @@ YY_RULE_SETUP
 case 10:
 YY_RULE_SETUP
 #line 114 "flex.l"
-{return(mount);}   
+{return(mount);}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
@@ -1177,12 +1177,12 @@ YY_RULE_SETUP
 case 45:
 YY_RULE_SETUP
 #line 154 "flex.l"
-{sscanf(yytext, "%s", yylval.entrace); return(e_fit);}     
+{sscanf(yytext, "%s", yylval.entrace); return(e_fit);}
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
 #line 155 "flex.l"
-{sscanf(yytext, "%s", yylval.entrace); return(e_units);}   
+{sscanf(yytext, "%s", yylval.entrace); return(e_units);}
 	YY_BREAK
 case 47:
 YY_RULE_SETUP

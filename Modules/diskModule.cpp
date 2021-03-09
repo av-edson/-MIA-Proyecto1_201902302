@@ -3,13 +3,20 @@
 #include <array>
 using namespace std;
 
-bool creeateExtendedPart(int _size, std::string _path, char _fit,std::string _name, int _add, std::string _delete);
+bool creeateLogicalPart(int _size, std::string _path, char _fit,std::string _name, int _add, std::string _delete);
+bool deletePart(std::string name, std::string path , std::string opcion);
 
 bool existFile(std::string path){
-    if (FILE *archivo = fopen(path.c_str(), "r"))
-    {
-        return true;
-    }else{
+    try{
+        if (FILE *archivo = fopen(path.c_str(), "r"))
+        {
+            fclose(archivo);
+            return true;
+        }else{
+            return false;
+        }
+    }catch (const std::exception& e){
+        cout << " conflicto al abrir archivo " << e.what() << endl;
         return false;
     }
 }
@@ -18,11 +25,13 @@ MBR getMRBDisk(std::string path){
     FILE *archivo = fopen(path.c_str(), "r");
     MBR temp;
     fread(&temp, sizeof(temp), 1, archivo);
+    fclose(archivo);
     return temp;
 }
 
 int getFit(std::string path, std::string fit, int partSize, std::string type);
 
+// ------------------------------------      MKDISK
 bool mkdiskF(int size, std::string fit, std::string units, std::string path){
     try
     {
@@ -87,7 +96,7 @@ bool mkdiskF(int size, std::string fit, std::string units, std::string path){
     }
     
 }
-
+// --------------------------------------   RMDISK
 bool rmdiskF(std::string path){
     try
     {   
@@ -119,14 +128,14 @@ bool rmdiskF(std::string path){
     }
     
 }
-
+// ----------------------------------      FDISK
 bool fdiskF(int _size, std::string _units, std::string _path, std::string _type, std::string _fit,std::string _name, int _add, std::string _delete ){
     bool aux = false;
     // si exisye el disco
     if (existFile(_path))
     {
         // parametro obligatorios
-        if (_size >1 && _name!= "")
+        if (_size > 0 && _name!= "")
         {
             char fit;
             char type;
@@ -156,10 +165,14 @@ bool fdiskF(int _size, std::string _units, std::string _path, std::string _type,
                         existPatitionSpace = true;
                         break;
                     }
-                    
+                    string partName (part.part_name);
+                    if (partName == _name){
+                        cout << "  - Ya esxiste particion con el nombre ingresado"<< endl;
+                        return false;
+                    }
                 }
                 // si no existe
-                if (!existPatitionSpace && type != 'e')
+                if (!existPatitionSpace && type != 'l')
                 {
                     cout << "  -- Ya se alcanzó el límite máximo de particiones -- " << endl;
                     return false;
@@ -175,30 +188,30 @@ bool fdiskF(int _size, std::string _units, std::string _path, std::string _type,
                 // validando logicas
                 if (type == 'l' || type == 'e')
                 {
-                    bool existeLigica = false;
+                    bool existeExtendida = false;
                     for(PARTITION pr: tempDisk.mbr_partition){
-                        if (pr.part_type == 'l')
+                        if (pr.part_type == 'e')
                         {
-                         existeLigica = true;
+                         existeExtendida = true;
                          break;   
                         }
                     }
-                    if (!existeLigica && type=='e')
+                    if (!existeExtendida && type=='l')
                     {
-                        cout << "   -- No existe particion logica para crear una extendida --" << endl;
+                        cout << "   -- No existe particion Extendida para crear una Logica --" << endl;
                         return false;
                     }
                     
-                    if (existeLigica && _type=="l")
+                    if (existeExtendida && _type=="e")
                     {
-                        cout << "   -- Ya existe una particion logica dentro del disco --" << endl;
+                        cout << "   -- Ya existe una particion Extendida dentro del disco --" << endl;
                         return false;
                     }
                     
                 }
 
-                if (type == 'e'){
-                    return creeateExtendedPart( _size, _path, fit, _name,  _add,  _delete);
+                if (type == 'l'){
+                    return creeateLogicalPart( _size, _path, fit, _name,  _add,  _delete);
                 }
                 // luego de las validaciones logicas pedimos ubicacion y validamos espacios del disco
                 int lugar = getFit(_path, _fit, _size, _type);  
@@ -234,11 +247,13 @@ bool fdiskF(int _size, std::string _units, std::string _path, std::string _type,
 
                 aux = true; 
             }
+            else if (_delete != ""){
+                return deletePart(_name,  _path , _delete);
+            }
         }else{
             cout << "       -- No se enviaron los parametro obligatorios -- " << endl;
             aux = false;
         }
-        
     }else{
         cout << "       --- El disco a modificar particion no existe --- " << endl;
         aux = false;
@@ -251,10 +266,11 @@ EBR getEbrLogicalPartition(std::string path, int inicioExtendida){
     EBR temp{};
     fseek(archivo, inicioExtendida , SEEK_SET);
     fread(&temp, sizeof(temp), 1, archivo);
+    fclose(archivo);
     return temp;
 }
 
-int getFitLogicPartition(PARTITION logica, char fit, int partSize, std::string path){
+int getFitLogicPartition(PARTITION extendida, char fit, int partSize, std::string path){
     // ---------------------- LENAMOS UNA MATRIZ CON ESPACIOS VACIOS ----------
     int matriz[6][2];
     for (int i = 0; i < 6; i++)
@@ -266,9 +282,9 @@ int getFitLogicPartition(PARTITION logica, char fit, int partSize, std::string p
 
     }
     int indexMatriz = 0;
-    int anterior=logica.part_start + 1;
+    int anterior=extendida.part_start + 1;
     // jalamos el EBR
-    EBR temp = getEbrLogicalPartition(path, logica.part_start+1);
+    EBR temp = getEbrLogicalPartition(path, extendida.part_start+1);
     if (temp.part_fit != 'b' && temp.part_fit != 'f' && temp.part_fit != 'w'){
         matriz[indexMatriz][0] = anterior;
         matriz[indexMatriz][1] = partSize+anterior+1;
@@ -286,7 +302,7 @@ int getFitLogicPartition(PARTITION logica, char fit, int partSize, std::string p
     if (fit == 'f'){
         for (int i = 0; i < 6; i++)
         {
-            if (matriz[i][0]+partSize > logica.part_size){
+            if (matriz[i][0]+partSize > extendida.part_start + extendida.part_size){
                 return 0;
             }
             int tamano = matriz[i][1] - matriz[i][0];
@@ -300,7 +316,7 @@ int getFitLogicPartition(PARTITION logica, char fit, int partSize, std::string p
         int grande = 0;
         for (int i = 0; i < 6; i++)
         {
-            if (matriz[i][0]+partSize > logica.part_size){
+            if (matriz[i][0]+partSize > extendida.part_size){
                 return 0;
             }
             int tamano = matriz[i][1] - matriz[i][0];
@@ -319,7 +335,7 @@ int getFitLogicPartition(PARTITION logica, char fit, int partSize, std::string p
         int mejor = 0;
         for (int i = 0; i < 6; i++)
         {
-            if (matriz[i][0]+partSize > logica.part_size){
+            if (matriz[i][0]+partSize > extendida.part_size){
                 return 0;
             }
             int tamano = matriz[i][1] - matriz[i][0];
@@ -428,7 +444,7 @@ int getFit(std::string path, std::string fit, int partSize, std::string type){
     return 0;
 }
 
-bool creeateExtendedPart(int _size, std::string _path, char _fit, std::string _name, int _add, std::string _delete){
+bool creeateLogicalPart(int _size, std::string _path, char _fit, std::string _name, int _add, std::string _delete){
     EBR logica{};
     logica.part_status = '1';
     logica.part_fit = _fit;
@@ -439,7 +455,7 @@ bool creeateExtendedPart(int _size, std::string _path, char _fit, std::string _n
     PARTITION extendida{};
     EBR anterior{};
     for(PARTITION pat: getMRBDisk(_path).mbr_partition){
-        if (pat.part_status == '1' && pat.part_type == 'l'){
+        if (pat.part_status == '1' && pat.part_type == 'e'){
             extendida = pat;
             break;
         }
@@ -480,9 +496,35 @@ bool creeateExtendedPart(int _size, std::string _path, char _fit, std::string _n
             fseek(archivo, logica.part_star, SEEK_SET);
             fread(&aux, sizeof (aux), 1, archivo);
         }
-
+        fclose(archivo);
         return true;
     }
     cout << "  - No hay espacio en el disco -"<< endl;
+    return false;
+}
+
+// -----------------------------          FDISK - DELETE
+bool deletePart(std::string name, std::string path , std::string opcion){
+    MBR disk = getMRBDisk(path);
+    PARTITION particion{}; bool encontrado=false;
+    // buscando la particion
+    for(PARTITION part: disk.mbr_partition){
+        string partName(part.part_name);
+        if (partName == name){
+            FILE *archivo = fopen(path.c_str(), "wb");
+            part.part_status = '0';
+            fseek(archivo, 0, SEEK_SET);
+            fwrite(&disk, sizeof(disk), 1, archivo);
+            if (opcion=="full"){
+                fseek(archivo, part.part_start, SEEK_SET);
+                for (int i = 0; i < part.part_size; ++i) {
+                    fwrite("\1", 1,1,archivo);
+                }
+            }
+            fclose(archivo);
+            return true;
+        }
+    }
+    cout << " No Existe la particion que decea eliminar"<< endl;
     return false;
 }
