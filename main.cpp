@@ -1,15 +1,11 @@
 #include <iostream>
-#include <stdlib.h>
 #include <fstream>
-#include <string.h>
 #include <array>
 #include "Analizer/scanner.h"
 #include "Analizer/parser.h"
 #include "Flow/rooter.h"
 
-
 using namespace std;
-extern int yyparse();
 extern std::array<std::string, 11> getDatos();
 extern void cleanEs();
 
@@ -30,21 +26,12 @@ int main(){
 }
 
 void mostrarMenu(){
-    ifstream file;
-    string content;
-    file.open("Analizer/encabezado.txt", ios::in);
-
-    if (file.fail())
-    {
-        cout << " -----------------   " << endl;
-    }else{
-        while (!file.eof())
-        {
-            getline(file, content);
-            cout << content << endl;
-        }
-        
-    }
+   cout << "             __^__                                      __^__"<< endl;
+   cout << "            ( ___ )------------------------------------( ___ )"<< endl;
+   cout << "             | / |             MIA 1S 2021              | \\ |"<< endl;
+   cout << "             | / |       EDSON SAUL AVILA ORTIZ         | \\ |"<< endl;
+   cout << "             |___|         PROYECTO 1 201902302         |___|"<< endl;
+   cout << "            (_____)------------------------------------(_____) " << endl;
 }
 
 string pedirEntrada(){
@@ -62,9 +49,9 @@ void leerEntrada(string entrada){
         std::array<std::string, 11> datos;
         datos = getDatos();
         // pidiendo array de los datos almacenados por los analizadores
-        mostrarDatos(datos);
+        //mostrarDatos(datos);
 
-        
+
         // vemos si se trata de una lextura de archivo
         if (datos[0] == "7")
         {
@@ -75,8 +62,8 @@ void leerEntrada(string entrada){
             // mandando el array para su procesamiento
             readArguments(datos);
         }
-        
-        
+
+
     }else{
         cout << "!!! ocurrio un error al leer !! \n";
     }
@@ -86,7 +73,7 @@ void leerEntrada(string entrada){
 void mostrarDatos(std::array<std::string, 11> lista){
     for (int i = 0; i < lista.size(); i++)
     {
-       cout << i << ". " <<lista[i] << "|";
+        cout << i << ". " <<lista[i] << "|";
     }
     cout << "\n";
 }
@@ -96,7 +83,7 @@ void readFile(string path){
     if (archivo.good())
     {
         for (std::string linia; getline(archivo, linia);)
-        {   
+        {
             cout << "Leyendo:->" <<  linia  <<  endl;
             if (linia.size() > 4)
             {
@@ -117,10 +104,10 @@ void readFile(string path){
             }
             cleanEs();
         }
-        
+
     }
     else{
         cout << "       -> El archivo de Entrada NO Existe <- " << endl;
     }
-    
+
 }

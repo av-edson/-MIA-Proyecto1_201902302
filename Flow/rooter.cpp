@@ -1,4 +1,5 @@
 #include "rooter.h"
+#include<bits/stdc++.h>
 
 using namespace std;
 
@@ -52,10 +53,17 @@ bool rootMkdisk(std::array<std::string, 11> args){
     
     
 }
+std::string toLower(std::string entrada){
+    transform(entrada.begin(), entrada.end(), entrada.begin(), ::tolower);
+    return entrada;
+}
 
 bool rootFdisk(std::array<std::string, 11> args){
     try{
         int tam = atoi(args[1].c_str());
+        args[3] = toLower(args[3]);
+        args[5] = toLower(args[5]);
+        args[2] = toLower(args[2]);
         return fdiskF(tam, args[3], args[4],args[5],args[2],args[6],atoi(args[7].c_str()),args[10]);
     }catch (char pr){
         cout << "   -- Ocurrio un error al crear la particion --" << endl;

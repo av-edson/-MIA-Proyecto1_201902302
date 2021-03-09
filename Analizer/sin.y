@@ -9,6 +9,7 @@ using namespace std;
 
 std::array<std::string, 11> getDatos();
 void cleanEs();
+int Pause();
 int yylex();
 int yyerror(const char* msg){
         cout<< "Syntax Error" << msg << endl;
@@ -49,7 +50,7 @@ int yyerror(const char* msg){
 %token <entrace> e_type
 %token <entrace> e_delete
 %token <text> e_name
-%token <entrace> e_id;
+%token <entrace> e_id
 
 
 %start ACTION
@@ -66,7 +67,7 @@ int yyerror(const char* msg){
 %%
 
 ACTION: show{showArguments(&data);}
-          | pausado {printf("           -> Presione Enter Para Continuar <- "); std::cin.get();}
+          | pausado {Pause();}
           | comentario {printf(" com: %s\n", $1);}
           | READFILE
           | MKDISK_F
@@ -130,4 +131,10 @@ std::array<std::string, 11> getDatos(){
 
 void cleanEs(){
         cleanStruct(&data, -1);
+}
+
+int Pause(){
+    std::cout << "Precione enter para continuar  ";
+    std::cin.get();
+    return 0;
 }
