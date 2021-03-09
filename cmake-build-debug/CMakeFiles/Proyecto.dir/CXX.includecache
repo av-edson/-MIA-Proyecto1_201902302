@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/edson/CLionProjects/Proyecto/Estructs/diskStructs.h
+stdio.h
+-
+time.h
+-
+
+/home/edson/CLionProjects/Proyecto/Modules/diskModule.cpp
+diskModule.h
+/home/edson/CLionProjects/Proyecto/Modules/diskModule.h
+../Estructs/diskStructs.h
+/home/edson/CLionProjects/Proyecto/Estructs/diskStructs.h
+array
+-
+
+/home/edson/CLionProjects/Proyecto/Modules/diskModule.h
+string
+-
+iostream
+-
+string.h
+-
+

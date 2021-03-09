@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/Proyecto.dir/main.cpp.o CMakeFiles/Proyecto.dir/Analizer/parser.cpp.o CMakeFiles/Proyecto.dir/Analizer/scanner.cpp.o CMakeFiles/Proyecto.dir/Flow/rooter.cpp.o CMakeFiles/Proyecto.dir/Modules/diskModule.cpp.o  -o Proyecto 
