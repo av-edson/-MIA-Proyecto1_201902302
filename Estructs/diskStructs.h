@@ -16,7 +16,7 @@ struct EBR
 
 struct PARTITION
 {
-    char part_status;
+    char part_status; // 1 activo 0 inactivo
     char part_type;
     char part_fit;
     int part_start;

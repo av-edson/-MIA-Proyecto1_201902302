@@ -111,7 +111,7 @@ COMENTARIO  #([^#|^\n|^\r\n])*(#)?
 {F_MKDISK} {return(mkdisk);}
 {F_RMDISK} {return(rmdisk);}
 {F_FDISK} {return(fdisk);}
-{F_MOUNT}   {return(mount);}   
+{F_MOUNT}   {return(mount);}
 {F_UNMOUNT} {return(unmount);}
 {F_MKFS}    {return(mkfs);}
 
@@ -151,8 +151,8 @@ COMENTARIO  #([^#|^\n|^\r\n])*(#)?
 {E_PATH2}    {strcpy(yylval.text, yytext); return(e_path);}
 {E_BF}      {sscanf(yytext, "%s", yylval.entrace); return(e_fit);}
 {E_FF}      {sscanf(yytext, "%s", yylval.entrace); return(e_fit);}
-{E_WF}      {sscanf(yytext, "%s", yylval.entrace); return(e_fit);}     
-{E_KILOBY}  {sscanf(yytext, "%s", yylval.entrace); return(e_units);}   
+{E_WF}      {sscanf(yytext, "%s", yylval.entrace); return(e_fit);}
+{E_KILOBY}  {sscanf(yytext, "%s", yylval.entrace); return(e_units);}
 {E_MEGBY}   {sscanf(yytext, "%s", yylval.entrace); return(e_units);}
 {E_E}       {sscanf(yytext, "%s", yylval.entrace); return(e_type);}
 {E_P}       {sscanf(yytext, "%s", yylval.entrace); return(e_type);}
