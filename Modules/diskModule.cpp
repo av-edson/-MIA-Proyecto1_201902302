@@ -29,7 +29,7 @@ MBR getMRBDisk(std::string path){
     return temp;
 }
 
-int getFit(std::string path, std::string fit, int partSize, std::string type);
+int getFit(std::string path, char fit, int partSize, std::string type);
 
 // ------------------------------------      MKDISK
 bool mkdiskF(int size, std::string fit, std::string units, std::string path){
@@ -214,7 +214,7 @@ bool fdiskF(int _size, std::string _units, std::string _path, std::string _type,
                     return creeateLogicalPart( _size, _path, fit, _name,  _add,  _delete);
                 }
                 // luego de las validaciones logicas pedimos ubicacion y validamos espacios del disco
-                int lugar = getFit(_path, _fit, _size, _type);  
+                int lugar = getFit(_path, fit, _size, _type);
                 nuevaPart.part_start = lugar;
                 if (nuevaPart.part_start == 0) return false;
                 
@@ -313,7 +313,7 @@ int getFitLogicPartition(PARTITION extendida, char fit, int partSize, std::strin
         }
     }
     if (fit == 'w'){
-        int grande = 0;
+        int grande = 0; int res=0;
         for (int i = 0; i < 6; i++)
         {
             if (matriz[i][0]+partSize > extendida.part_size){
@@ -325,11 +325,12 @@ int getFitLogicPartition(PARTITION extendida, char fit, int partSize, std::strin
                 if (tamano > grande)
                 {
                     grande = tamano;
+                    res = matriz[i][0];
                 }
 
             }
         }
-        return grande;
+        return res;
     }
     if (fit == 'b'){
         int mejor = 0;
@@ -354,7 +355,7 @@ int getFitLogicPartition(PARTITION extendida, char fit, int partSize, std::strin
 }
 
 
-int getFit(std::string path, std::string fit, int partSize, std::string type){
+int getFit(std::string path, char fit, int partSize, std::string type){
     MBR disk = getMRBDisk(path);
     // ---------------------- LENAMOS UNA MATRIZ CON ESPACIOS VACIOS ----------
     int matriz[6][2];
@@ -395,7 +396,7 @@ int getFit(std::string path, std::string fit, int partSize, std::string type){
         }
     // SI SE TRATAN DE LOGICAS O PRIMARIAS ES EL MISMO PROCESO
     // -----------------------  FIST FIT --------------
-    if (fit == "ff")
+    if (fit == 'f')
     {
         for (int i = 0; i < 6; i++)
         {
@@ -407,9 +408,10 @@ int getFit(std::string path, std::string fit, int partSize, std::string type){
         }
         
     }
-    if (fit =="wf")      
+    if (fit =='w')
     {
         int grande = 0;
+        int resultado=0;
         for (int i = 0; i < 6; i++)
         {
             int tamano = matriz[i][1] - matriz[i][0];
@@ -418,13 +420,14 @@ int getFit(std::string path, std::string fit, int partSize, std::string type){
                 if (tamano > grande)
                 {
                     grande = tamano;
+                    resultado = matriz[i][0];
                 }
                 
             }  
         }
-        return grande;
+        return resultado;
     }
-    if (fit == "bf"){
+    if (fit == 'b'){
         int mejor = 0;
         for (int i = 0; i < 6; i++)
         {
@@ -526,5 +529,46 @@ bool deletePart(std::string name, std::string path , std::string opcion){
         }
     }
     cout << " No Existe la particion que decea eliminar"<< endl;
+    return false;
+}
+
+// ----------------------------------             MONTAR ------------------------
+bool montar(std::string path,std::string namePart,list<montadas> *listaMontadas){
+    for (montadas mt: *listaMontadas){
+        if (mt.getName() == namePart){
+            cout << "   - Ya se monto la particion antes-"<< endl;
+            return false;
+        }
+    }
+    montadas aux;
+    aux.savePartition(path, listaMontadas, namePart);
+    MBR tempDisk = getMRBDisk(path); bool encontrado=false;
+    // buscammos el nombre de la particion
+    for(PARTITION part: tempDisk.mbr_partition){
+        string tempName = part.part_name;
+        if (tempName == namePart && part.part_status == '1'){
+            encontrado = true;
+            break;
+        }
+    }
+    if (!encontrado){
+        cout << "   - No existe la particion que decea montar-";
+        listaMontadas->pop_back();
+        return false;
+    }
+    // falta agregarle las clases necesarias para montar el sistema de archivos
+    return true;
+}
+
+bool desmontar(std::string path,std::string idPart,list<montadas> *listaMontadas){
+    list<montadas>::const_iterator index = listaMontadas->cbegin();
+    for (montadas mt: *listaMontadas){
+        list<montadas>::const_iterator actual = index++;
+        if (mt.getId() == idPart){
+            listaMontadas->erase(actual);
+            return true;
+        }
+    }
+    cout << "       - No se encontro " << endl;
     return false;
 }

@@ -41,6 +41,9 @@ int yyerror(const char* msg){
 %token <other> id
 %token <other> dele
 %token <other> readfile
+%token <other> rep
+%token <text> r_mbr
+%token <text> r_disk
 
 /* entradas */
 %token <number> number
@@ -75,6 +78,7 @@ ACTION: show{showArguments(&data);}
           | FDISK_F
           | MOUNT_F
           | UNMOUNT_F
+          | REPORTS
         ;
 
 MKDISK_F: mkdisk MKPARAMS;
@@ -120,6 +124,14 @@ MOUNT_F: mount path igual e_path name igual e_name {
 UNMOUNT_F: unmount id igual e_id { cleanStruct(&data, 5); addDiskIde($4, &data, 5);};
 
 READFILE: readfile path igual e_path{ cleanStruct(&data, 7); addPath($4, &data, 7);};
+
+REPORTS: rep REPORTSPARAMS;
+REPORTSPARAMS: REPORTSPARAM REPORTSPARAMS
+		| REPORTSPARAM;
+REPORTSPARAM: name igual r_mbr {cleanStruct(&data, 66); addNameDisk($3, &data, 4);}
+		| name igual r_disk {cleanStruct(&data, 66); addNameDisk($3, &data, 4);}
+		| path igual e_path {cleanStruct(&data, 66); addPath($3, &data, 66);}
+		| id igual e_id {cleanStruct(&data, 66); addDiskIde($3, &data, 66);};
 
 
 %%

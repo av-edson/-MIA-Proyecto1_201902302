@@ -3,7 +3,16 @@
 #include <string.h>
 #include <iostream>
 #include <array>
-
+/*
+ *  1 - mkdisk
+ *  2- rmdisk
+ *  3- fdisk
+ *  4- mount
+ *  5- unmount
+ *  6
+ *  7- readFile
+ *  66- graficar
+ */
 using namespace std;
 
 struct argumentos

@@ -1,25 +1,37 @@
 #include "rooter.h"
 #include<bits/stdc++.h>
+#include "list"
+#include "../montadas.h"
 
 using namespace std;
 
 bool rootMkdisk(std::array<std::string, 11> args);
 bool rootFdisk(std::array<std::string, 11> args);
+bool rootGraphics(std::array<std::string, 11>args);
+bool rootMount(std::array<std::string, 11>args, list<montadas> *listaMontadas);
+bool rootUnMount(std::array<std::string, 11>args, list<montadas> *listaMontadas);
 
-
-void readArguments(std::array<std::string, 11> lista){
+void readArguments(std::array<std::string, 11> lista, list<montadas> *listaMontadas){
     string opcionFuncion = lista[0];
     bool resultFuction = false;
     switch (atoi(opcionFuncion.c_str()))
     {
-    case 1:
-        resultFuction = rootMkdisk(lista);
-        break;
-    case 2:
-        resultFuction = rmdiskF(lista[4]);
-        break;
-    case 3:
-        resultFuction = rootFdisk(lista);
+        case 1:
+            resultFuction = rootMkdisk(lista);
+            break;
+        case 2:
+            resultFuction = rmdiskF(lista[4]);
+            break;
+        case 3:
+            resultFuction = rootFdisk(lista);
+            break;
+        case 4:
+            resultFuction = rootMount(lista, listaMontadas);
+            break;
+        case 5:
+            resultFuction = rootUnMount(lista, listaMontadas);
+        case 66:
+            resultFuction = rootGraphics(lista);
     }
 
     if (resultFuction)
@@ -69,4 +81,30 @@ bool rootFdisk(std::array<std::string, 11> args){
         cout << "   -- Ocurrio un error al crear la particion --" << endl;
         return false;
     }
+}
+
+bool rootGraphics(std::array<std::string, 11>args){
+    try{
+        if (args[6] == ""){
+
+        }
+        return true;
+    }catch (char pr){
+        cout << "   -- Ocurrio un error al generar Grafica --" << endl;
+        return false;
+    }
+}
+
+bool rootMount(std::array<std::string, 11>args, list<montadas> *listaMontadas){
+    if (FILE *archivo = fopen(args[4].c_str(), "r"))
+    {
+        return montar(args[4],args[6] ,listaMontadas);
+    }else{
+        cout << "      -No existe disco para montar la particion-" << endl;
+        return false;
+    }
+}
+
+bool rootUnMount(std::array<std::string, 11>args, list<montadas> *listaMontadas){
+        return desmontar(args[4],args[6] ,listaMontadas);
 }

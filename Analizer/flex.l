@@ -82,6 +82,7 @@ E_NAME1      {LETRAS}({LETRAS}|{ENTERO})*
 E_NAME2     \"{LETRAS}({LETRAS}|{ENTERO}|" ")*\"
 E_IDES    {ENTERO}[a-z]{1,2}
 
+
 /* OTROS */
 IGUAL       "="
 SLASH       "/"
@@ -107,6 +108,13 @@ COMENTARIO  #([^#|^\n|^\r\n])*(#)?
 
  "show"      {return(show);}
  "exec"     {return(readfile);}
+
+ /*REPORTES*/
+ "rep"          {strcpy(yylval.text, yytext); return(rep);}
+ "mbr"        {strcpy(yylval.text, yytext); return(r_mbr);}
+ "disk"        {strcpy(yylval.text, yytext); return(r_disk);}
+
+
 {F_PAUSE}   {return(pausado);}
 {F_MKDISK} {return(mkdisk);}
 {F_RMDISK} {return(rmdisk);}

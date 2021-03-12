@@ -197,6 +197,33 @@ Analizer/scanner.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Proyecto.dir/build.make CMakeFiles/Proyecto.dir/Analizer/scanner.cpp.s
 .PHONY : Analizer/scanner.cpp.s
 
+Estructs/partitionMount.o: Estructs/partitionMount.cpp.o
+
+.PHONY : Estructs/partitionMount.o
+
+# target to build an object file
+Estructs/partitionMount.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Proyecto.dir/build.make CMakeFiles/Proyecto.dir/Estructs/partitionMount.cpp.o
+.PHONY : Estructs/partitionMount.cpp.o
+
+Estructs/partitionMount.i: Estructs/partitionMount.cpp.i
+
+.PHONY : Estructs/partitionMount.i
+
+# target to preprocess a source file
+Estructs/partitionMount.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Proyecto.dir/build.make CMakeFiles/Proyecto.dir/Estructs/partitionMount.cpp.i
+.PHONY : Estructs/partitionMount.cpp.i
+
+Estructs/partitionMount.s: Estructs/partitionMount.cpp.s
+
+.PHONY : Estructs/partitionMount.s
+
+# target to generate assembly for a file
+Estructs/partitionMount.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Proyecto.dir/build.make CMakeFiles/Proyecto.dir/Estructs/partitionMount.cpp.s
+.PHONY : Estructs/partitionMount.cpp.s
+
 Flow/rooter.o: Flow/rooter.cpp.o
 
 .PHONY : Flow/rooter.o
@@ -223,6 +250,33 @@ Flow/rooter.s: Flow/rooter.cpp.s
 Flow/rooter.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Proyecto.dir/build.make CMakeFiles/Proyecto.dir/Flow/rooter.cpp.s
 .PHONY : Flow/rooter.cpp.s
+
+Graphics/graficador.o: Graphics/graficador.cpp.o
+
+.PHONY : Graphics/graficador.o
+
+# target to build an object file
+Graphics/graficador.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Proyecto.dir/build.make CMakeFiles/Proyecto.dir/Graphics/graficador.cpp.o
+.PHONY : Graphics/graficador.cpp.o
+
+Graphics/graficador.i: Graphics/graficador.cpp.i
+
+.PHONY : Graphics/graficador.i
+
+# target to preprocess a source file
+Graphics/graficador.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Proyecto.dir/build.make CMakeFiles/Proyecto.dir/Graphics/graficador.cpp.i
+.PHONY : Graphics/graficador.cpp.i
+
+Graphics/graficador.s: Graphics/graficador.cpp.s
+
+.PHONY : Graphics/graficador.s
+
+# target to generate assembly for a file
+Graphics/graficador.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Proyecto.dir/build.make CMakeFiles/Proyecto.dir/Graphics/graficador.cpp.s
+.PHONY : Graphics/graficador.cpp.s
 
 Modules/diskModule.o: Modules/diskModule.cpp.o
 
@@ -278,6 +332,33 @@ main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Proyecto.dir/build.make CMakeFiles/Proyecto.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+montadas.o: montadas.cpp.o
+
+.PHONY : montadas.o
+
+# target to build an object file
+montadas.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Proyecto.dir/build.make CMakeFiles/Proyecto.dir/montadas.cpp.o
+.PHONY : montadas.cpp.o
+
+montadas.i: montadas.cpp.i
+
+.PHONY : montadas.i
+
+# target to preprocess a source file
+montadas.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Proyecto.dir/build.make CMakeFiles/Proyecto.dir/montadas.cpp.i
+.PHONY : montadas.cpp.i
+
+montadas.s: montadas.cpp.s
+
+.PHONY : montadas.s
+
+# target to generate assembly for a file
+montadas.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Proyecto.dir/build.make CMakeFiles/Proyecto.dir/montadas.cpp.s
+.PHONY : montadas.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -293,15 +374,24 @@ help:
 	@echo "... Analizer/scanner.o"
 	@echo "... Analizer/scanner.i"
 	@echo "... Analizer/scanner.s"
+	@echo "... Estructs/partitionMount.o"
+	@echo "... Estructs/partitionMount.i"
+	@echo "... Estructs/partitionMount.s"
 	@echo "... Flow/rooter.o"
 	@echo "... Flow/rooter.i"
 	@echo "... Flow/rooter.s"
+	@echo "... Graphics/graficador.o"
+	@echo "... Graphics/graficador.i"
+	@echo "... Graphics/graficador.s"
 	@echo "... Modules/diskModule.o"
 	@echo "... Modules/diskModule.i"
 	@echo "... Modules/diskModule.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... montadas.o"
+	@echo "... montadas.i"
+	@echo "... montadas.s"
 .PHONY : help
 
 

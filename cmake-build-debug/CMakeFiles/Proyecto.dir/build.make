@@ -142,13 +142,55 @@ CMakeFiles/Proyecto.dir/Modules/diskModule.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Proyecto.dir/Modules/diskModule.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/edson/CLionProjects/Proyecto/Modules/diskModule.cpp -o CMakeFiles/Proyecto.dir/Modules/diskModule.cpp.s
 
+CMakeFiles/Proyecto.dir/Graphics/graficador.cpp.o: CMakeFiles/Proyecto.dir/flags.make
+CMakeFiles/Proyecto.dir/Graphics/graficador.cpp.o: ../Graphics/graficador.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/edson/CLionProjects/Proyecto/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/Proyecto.dir/Graphics/graficador.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Proyecto.dir/Graphics/graficador.cpp.o -c /home/edson/CLionProjects/Proyecto/Graphics/graficador.cpp
+
+CMakeFiles/Proyecto.dir/Graphics/graficador.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Proyecto.dir/Graphics/graficador.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/edson/CLionProjects/Proyecto/Graphics/graficador.cpp > CMakeFiles/Proyecto.dir/Graphics/graficador.cpp.i
+
+CMakeFiles/Proyecto.dir/Graphics/graficador.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Proyecto.dir/Graphics/graficador.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/edson/CLionProjects/Proyecto/Graphics/graficador.cpp -o CMakeFiles/Proyecto.dir/Graphics/graficador.cpp.s
+
+CMakeFiles/Proyecto.dir/Estructs/partitionMount.cpp.o: CMakeFiles/Proyecto.dir/flags.make
+CMakeFiles/Proyecto.dir/Estructs/partitionMount.cpp.o: ../Estructs/partitionMount.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/edson/CLionProjects/Proyecto/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/Proyecto.dir/Estructs/partitionMount.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Proyecto.dir/Estructs/partitionMount.cpp.o -c /home/edson/CLionProjects/Proyecto/Estructs/partitionMount.cpp
+
+CMakeFiles/Proyecto.dir/Estructs/partitionMount.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Proyecto.dir/Estructs/partitionMount.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/edson/CLionProjects/Proyecto/Estructs/partitionMount.cpp > CMakeFiles/Proyecto.dir/Estructs/partitionMount.cpp.i
+
+CMakeFiles/Proyecto.dir/Estructs/partitionMount.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Proyecto.dir/Estructs/partitionMount.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/edson/CLionProjects/Proyecto/Estructs/partitionMount.cpp -o CMakeFiles/Proyecto.dir/Estructs/partitionMount.cpp.s
+
+CMakeFiles/Proyecto.dir/montadas.cpp.o: CMakeFiles/Proyecto.dir/flags.make
+CMakeFiles/Proyecto.dir/montadas.cpp.o: ../montadas.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/edson/CLionProjects/Proyecto/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/Proyecto.dir/montadas.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Proyecto.dir/montadas.cpp.o -c /home/edson/CLionProjects/Proyecto/montadas.cpp
+
+CMakeFiles/Proyecto.dir/montadas.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Proyecto.dir/montadas.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/edson/CLionProjects/Proyecto/montadas.cpp > CMakeFiles/Proyecto.dir/montadas.cpp.i
+
+CMakeFiles/Proyecto.dir/montadas.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Proyecto.dir/montadas.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/edson/CLionProjects/Proyecto/montadas.cpp -o CMakeFiles/Proyecto.dir/montadas.cpp.s
+
 # Object files for target Proyecto
 Proyecto_OBJECTS = \
 "CMakeFiles/Proyecto.dir/main.cpp.o" \
 "CMakeFiles/Proyecto.dir/Analizer/parser.cpp.o" \
 "CMakeFiles/Proyecto.dir/Analizer/scanner.cpp.o" \
 "CMakeFiles/Proyecto.dir/Flow/rooter.cpp.o" \
-"CMakeFiles/Proyecto.dir/Modules/diskModule.cpp.o"
+"CMakeFiles/Proyecto.dir/Modules/diskModule.cpp.o" \
+"CMakeFiles/Proyecto.dir/Graphics/graficador.cpp.o" \
+"CMakeFiles/Proyecto.dir/Estructs/partitionMount.cpp.o" \
+"CMakeFiles/Proyecto.dir/montadas.cpp.o"
 
 # External object files for target Proyecto
 Proyecto_EXTERNAL_OBJECTS =
@@ -158,9 +200,12 @@ Proyecto: CMakeFiles/Proyecto.dir/Analizer/parser.cpp.o
 Proyecto: CMakeFiles/Proyecto.dir/Analizer/scanner.cpp.o
 Proyecto: CMakeFiles/Proyecto.dir/Flow/rooter.cpp.o
 Proyecto: CMakeFiles/Proyecto.dir/Modules/diskModule.cpp.o
+Proyecto: CMakeFiles/Proyecto.dir/Graphics/graficador.cpp.o
+Proyecto: CMakeFiles/Proyecto.dir/Estructs/partitionMount.cpp.o
+Proyecto: CMakeFiles/Proyecto.dir/montadas.cpp.o
 Proyecto: CMakeFiles/Proyecto.dir/build.make
 Proyecto: CMakeFiles/Proyecto.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/edson/CLionProjects/Proyecto/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable Proyecto"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/edson/CLionProjects/Proyecto/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX executable Proyecto"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Proyecto.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

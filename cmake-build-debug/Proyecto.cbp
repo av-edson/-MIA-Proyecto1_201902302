@@ -94,10 +94,22 @@
 		<Unit filename="/home/edson/CLionProjects/Proyecto/Analizer/scanner.h">
 			<Option target="Proyecto"/>
 		</Unit>
+		<Unit filename="/home/edson/CLionProjects/Proyecto/Estructs/partitionMount.cpp">
+			<Option target="Proyecto"/>
+		</Unit>
+		<Unit filename="/home/edson/CLionProjects/Proyecto/Estructs/partitionMount.h">
+			<Option target="Proyecto"/>
+		</Unit>
 		<Unit filename="/home/edson/CLionProjects/Proyecto/Flow/rooter.cpp">
 			<Option target="Proyecto"/>
 		</Unit>
 		<Unit filename="/home/edson/CLionProjects/Proyecto/Flow/rooter.h">
+			<Option target="Proyecto"/>
+		</Unit>
+		<Unit filename="/home/edson/CLionProjects/Proyecto/Graphics/graficador.cpp">
+			<Option target="Proyecto"/>
+		</Unit>
+		<Unit filename="/home/edson/CLionProjects/Proyecto/Graphics/graficador.h">
 			<Option target="Proyecto"/>
 		</Unit>
 		<Unit filename="/home/edson/CLionProjects/Proyecto/Modules/diskModule.cpp">
@@ -107,6 +119,12 @@
 			<Option target="Proyecto"/>
 		</Unit>
 		<Unit filename="/home/edson/CLionProjects/Proyecto/main.cpp">
+			<Option target="Proyecto"/>
+		</Unit>
+		<Unit filename="/home/edson/CLionProjects/Proyecto/montadas.cpp">
+			<Option target="Proyecto"/>
+		</Unit>
+		<Unit filename="/home/edson/CLionProjects/Proyecto/montadas.h">
 			<Option target="Proyecto"/>
 		</Unit>
 		<Unit filename="/home/edson/CLionProjects/Proyecto/CMakeLists.txt">

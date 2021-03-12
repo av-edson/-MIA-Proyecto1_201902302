@@ -4,23 +4,25 @@
 #include "Analizer/scanner.h"
 #include "Analizer/parser.h"
 #include "Flow/rooter.h"
+#include "list"
+#include "montadas.h"
 
 using namespace std;
 extern std::array<std::string, 11> getDatos();
 extern void cleanEs();
 
-
 void mostrarMenu();
 string pedirEntrada();
-void leerEntrada(string entrada);
+void leerEntrada(string entrada, list<montadas> *listaMontadas);
 void mostrarDatos(std::array<std::string, 11> lista);
-void readFile(string path);
+void readFile(string path, list<montadas> *listaMontadas);
 
 int main(){
+    list<montadas> listaMontadas;
     mostrarMenu();
     while (true)
     {
-        leerEntrada(pedirEntrada());
+        leerEntrada(pedirEntrada(), &listaMontadas);
     }
     return 0;
 }
@@ -41,26 +43,21 @@ string pedirEntrada(){
     return input;
 }
 
-void leerEntrada(string entrada){
+void leerEntrada(string entrada, list<montadas> *lista){
     // cout << "       leyendo--" << entrada  << endl;
     YY_BUFFER_STATE buffer = yy_scan_string(entrada.c_str());
     if (yyparse() == 0)
     {
         std::array<std::string, 11> datos;
         datos = getDatos();
-        // pidiendo array de los datos almacenados por los analizadores
-        //mostrarDatos(datos);
-
-
-        // vemos si se trata de una lextura de archivo
         if (datos[0] == "7")
         {
-
-            readFile(datos[4]);
+            readFile(datos[4], lista);
         }
         else{
             // mandando el array para su procesamiento
-            readArguments(datos);
+
+            readArguments(datos, lista);
         }
 
 
@@ -78,7 +75,7 @@ void mostrarDatos(std::array<std::string, 11> lista){
     cout << "\n";
 }
 
-void readFile(string path){
+void readFile(string path, list<montadas> *lista){
     ifstream archivo(path);
     if (archivo.good())
     {
@@ -95,7 +92,7 @@ void readFile(string path){
                     // // pidiendo array de los datos almacenados por los analizadores
                     // mostrarDatos(datos);
                     // mandando el array para su procesamiento
-                    readArguments( getDatos());
+                    readArguments( getDatos(), lista);
                     cout << endl;
                 }
                 else{
