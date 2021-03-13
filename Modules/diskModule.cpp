@@ -8,7 +8,7 @@ bool deletePart(std::string name, std::string path , std::string opcion);
 
 bool existFile(std::string path){
     try{
-        if (FILE *archivo = fopen(path.c_str(), "r"))
+        if (FILE *archivo = fopen(path.c_str(), "rb+"))
         {
             fclose(archivo);
             return true;
@@ -22,7 +22,7 @@ bool existFile(std::string path){
 }
 
 MBR getMRBDisk(std::string path){
-    FILE *archivo = fopen(path.c_str(), "r");
+    FILE *archivo = fopen(path.c_str(), "rb+");
     MBR temp;
     fread(&temp, sizeof(temp), 1, archivo);
     fclose(archivo);
@@ -76,7 +76,7 @@ bool mkdiskF(int size, std::string fit, std::string units, std::string path){
         //cout << "   ->>> " << tempDisk.mbr_tamano << " -- " << " -- " << tempDisk.mbr_disk_signature << " -- " << tempDisk.disk_fit << " -- " << asctime(gmtime(&tempDisk.mbr_fecha_creacion));
         // creando el archivo
         char bufer[1024];
-        FILE *archivo = fopen(path.c_str(), "wb");
+        FILE *archivo = fopen(path.c_str(), "w+");
         for (int i = 0; i < size/1024; i++)
         {
             fwrite(&bufer, sizeof(bufer), 1, archivo);
@@ -386,12 +386,12 @@ int getFit(std::string path, char fit, int partSize, std::string type){
                 anterior = disk.mbr_partition[i].part_size + disk.mbr_partition[i].part_start +1;
             }else{
                 libre = true;
-                if (i==3)
-                {
-                    matriz[numeroLista][0] =  anterior;
-                    matriz[numeroLista][1] = disk.mbr_tamano;
-                    numeroLista++;
-                }
+            }
+            if (i==3)
+            {
+                matriz[numeroLista][0] =  anterior;
+                matriz[numeroLista][1] = disk.mbr_tamano;
+                numeroLista++;
             }
         }
     // SI SE TRATAN DE LOGICAS O PRIMARIAS ES EL MISMO PROCESO
@@ -428,19 +428,23 @@ int getFit(std::string path, char fit, int partSize, std::string type){
         return resultado;
     }
     if (fit == 'b'){
-        int mejor = 0;
+        int mejor = 0; int resultado;
         for (int i = 0; i < 6; i++)
         {
             int tamano = matriz[i][1] - matriz[i][0];
             if (tamano > partSize)
             {
-                if (i==0) mejor = tamano;
+                if (i==0) {
+                    mejor = tamano;
+                    resultado = matriz[i][0];
+                }
                 else if(tamano < mejor){
                     mejor = tamano;
+                    resultado = matriz[i][0];
                 }
             }
         }
-        return mejor;
+        return resultado;
     }
     
     cout << "       -- Espacio insuficiente en el disco --"<< endl;
@@ -509,18 +513,18 @@ bool creeateLogicalPart(int _size, std::string _path, char _fit, std::string _na
 // -----------------------------          FDISK - DELETE
 bool deletePart(std::string name, std::string path , std::string opcion){
     MBR disk = getMRBDisk(path);
-    PARTITION particion{}; bool encontrado=false;
+     bool encontrado=false;
     // buscando la particion
-    for(PARTITION part: disk.mbr_partition){
-        string partName(part.part_name);
+    for(int i=0; i<4; i++){
+        string partName(disk.mbr_partition[i].part_name);
         if (partName == name){
-            FILE *archivo = fopen(path.c_str(), "wb");
-            part.part_status = '0';
+            FILE *archivo = fopen(path.c_str(), "rb+");
+            disk.mbr_partition[i].part_status = '0';
             fseek(archivo, 0, SEEK_SET);
             fwrite(&disk, sizeof(disk), 1, archivo);
             if (opcion=="full"){
-                fseek(archivo, part.part_start, SEEK_SET);
-                for (int i = 0; i < part.part_size; ++i) {
+                fseek(archivo, disk.mbr_partition[i].part_start, SEEK_SET);
+                for (int i = 0; i < disk.mbr_partition[i].part_size; ++i) {
                     fwrite("\1", 1,1,archivo);
                 }
             }

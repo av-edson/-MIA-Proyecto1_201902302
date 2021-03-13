@@ -74,12 +74,13 @@ extern int yydebug;
     r_disk = 280,
     number = 281,
     e_path = 282,
-    e_fit = 283,
-    e_units = 284,
-    e_type = 285,
-    e_delete = 286,
-    e_name = 287,
-    e_id = 288
+    e_pdf_path = 283,
+    e_fit = 284,
+    e_units = 285,
+    e_type = 286,
+    e_delete = 287,
+    e_name = 288,
+    e_id = 289
   };
 #endif
 
@@ -87,14 +88,14 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 63 "sin.y"
+#line 64 "sin.y"
 
     int number;
     char text[200];
     char entrace[12];
     int other;
 
-#line 98 "parser.h"
+#line 99 "parser.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

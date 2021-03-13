@@ -48,6 +48,7 @@ int yyerror(const char* msg){
 /* entradas */
 %token <number> number
 %token <text> e_path
+%token <text> e_pdf_path
 %token <entrace> e_fit
 %token <entrace> e_units
 %token <entrace> e_type
@@ -128,9 +129,9 @@ READFILE: readfile path igual e_path{ cleanStruct(&data, 7); addPath($4, &data, 
 REPORTS: rep REPORTSPARAMS;
 REPORTSPARAMS: REPORTSPARAM REPORTSPARAMS
 		| REPORTSPARAM;
-REPORTSPARAM: name igual r_mbr {cleanStruct(&data, 66); addNameDisk($3, &data, 4);}
-		| name igual r_disk {cleanStruct(&data, 66); addNameDisk($3, &data, 4);}
-		| path igual e_path {cleanStruct(&data, 66); addPath($3, &data, 66);}
+REPORTSPARAM: name igual r_mbr {cleanStruct(&data, 66); addNameDisk($3, &data, 66);}
+		| name igual r_disk {cleanStruct(&data, 66); addNameDisk($3, &data, 66);}
+		| path igual e_pdf_path {cleanStruct(&data, 66); addPath($3, &data, 66);}
 		| id igual e_id {cleanStruct(&data, 66); addDiskIde($3, &data, 66);};
 
 

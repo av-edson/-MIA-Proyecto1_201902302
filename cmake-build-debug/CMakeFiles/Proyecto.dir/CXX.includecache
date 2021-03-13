@@ -6,13 +6,29 @@
 
 #IncludeRegexTransform: 
 
-/home/edson/CLionProjects/Proyecto/montadas.cpp
-montadas.h
-/home/edson/CLionProjects/Proyecto/montadas.h
+/home/edson/CLionProjects/Proyecto/Estructs/diskStructs.h
+stdio.h
+-
+time.h
+-
 
-/home/edson/CLionProjects/Proyecto/montadas.h
-string
-/home/edson/CLionProjects/Proyecto/string
+/home/edson/CLionProjects/Proyecto/Graphics/graficador.cpp
+graficador.h
+/home/edson/CLionProjects/Proyecto/Graphics/graficador.h
+../Estructs/diskStructs.h
+/home/edson/CLionProjects/Proyecto/Estructs/diskStructs.h
+stdio.h
+-
 list
-/home/edson/CLionProjects/Proyecto/list
+/home/edson/CLionProjects/Proyecto/Graphics/list
+fstream
+/home/edson/CLionProjects/Proyecto/Graphics/fstream
+
+/home/edson/CLionProjects/Proyecto/Graphics/graficador.h
+iostream
+-
+string
+-
+array
+-
 

@@ -17,6 +17,7 @@ CMakeFiles/Proyecto.dir/Flow/rooter.cpp.o: ../Graphics/graficador.h
 CMakeFiles/Proyecto.dir/Flow/rooter.cpp.o: ../Modules/diskModule.h
 CMakeFiles/Proyecto.dir/Flow/rooter.cpp.o: ../montadas.h
 
+CMakeFiles/Proyecto.dir/Graphics/graficador.cpp.o: ../Estructs/diskStructs.h
 CMakeFiles/Proyecto.dir/Graphics/graficador.cpp.o: ../Graphics/graficador.cpp
 CMakeFiles/Proyecto.dir/Graphics/graficador.cpp.o: ../Graphics/graficador.h
 

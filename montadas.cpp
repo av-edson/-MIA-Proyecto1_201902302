@@ -11,7 +11,6 @@ void montadas::savePartition(string path, list<montadas> *listaMontadas, string 
     if (listaMontadas->empty()){
         montadas nuevaMontada;
         nuevaMontada.letra = 'a';
-        nuevaMontada.carnet = 32;
         nuevaMontada.numero = 1;
         nuevaMontada.path = path;
         nuevaMontada.nombre = _nombre;
@@ -35,7 +34,6 @@ void montadas::savePartition(string path, list<montadas> *listaMontadas, string 
     }
     montadas nuevaMontada;
     nuevaMontada.letra = getLetraMontadas(letra);
-    nuevaMontada.carnet = 32;
     nuevaMontada.numero = numero;
     nuevaMontada.path = path;
     nuevaMontada.nombre = _nombre;
@@ -48,7 +46,11 @@ string montadas::getName() {
 }
 
 string montadas::getId() {
-    return std::string();
+    return this->id;
+}
+
+string montadas::getPath() {
+    return this->path;
 }
 
 char getLetraMontadas(char letraAnterior){
@@ -79,7 +81,7 @@ char getLetraMontadas(char letraAnterior){
 string makeId(char letra, int numero){
     string nm = to_string(numero);
     string le(1, letra);
-    string res = "32";
+    string res = "02";
     res.append(nm); res.append(le);
     return res;
 }

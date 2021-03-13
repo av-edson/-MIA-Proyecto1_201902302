@@ -2,12 +2,13 @@
 #include<bits/stdc++.h>
 #include "list"
 #include "../montadas.h"
+#include "../Graphics/graficador.h"
 
 using namespace std;
 
 bool rootMkdisk(std::array<std::string, 11> args);
 bool rootFdisk(std::array<std::string, 11> args);
-bool rootGraphics(std::array<std::string, 11>args);
+bool rootGraphics(std::array<std::string, 11>args, list<montadas> *listaMontadas);
 bool rootMount(std::array<std::string, 11>args, list<montadas> *listaMontadas);
 bool rootUnMount(std::array<std::string, 11>args, list<montadas> *listaMontadas);
 
@@ -30,8 +31,9 @@ void readArguments(std::array<std::string, 11> lista, list<montadas> *listaMonta
             break;
         case 5:
             resultFuction = rootUnMount(lista, listaMontadas);
+            break;
         case 66:
-            resultFuction = rootGraphics(lista);
+            resultFuction = rootGraphics(lista, listaMontadas);
     }
 
     if (resultFuction)
@@ -83,10 +85,30 @@ bool rootFdisk(std::array<std::string, 11> args){
     }
 }
 
-bool rootGraphics(std::array<std::string, 11>args){
-    try{
-        if (args[6] == ""){
+bool rootGraphics(std::array<std::string, 11>args, list<montadas> *listaMontadas){
+    if (listaMontadas->empty()){
+        cout << "   - No ha montado ninguna particion -"<< endl;
+        return false;
+    }
 
+    bool encontrado = false; montadas aux;
+    for (montadas mt: *listaMontadas){
+        if (mt.getId() == args[8]){
+            encontrado = true;
+            aux = mt;
+            break;
+        }
+    }
+    if(!encontrado){
+        cout << "   -No se ha montado la particion con el id ingresado- "<< endl;
+        return false;
+    }
+
+    try{
+        if (toLower(args[6]) == "disk"){
+            graficarDisk(aux.getPath(), args[4]);
+        }else if (toLower(args[6]) == "mbr"){
+            graficarMBR(aux.getPath(), args[4]);
         }
         return true;
     }catch (char pr){

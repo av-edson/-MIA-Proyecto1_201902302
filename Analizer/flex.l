@@ -78,6 +78,8 @@ E_FAST      "fast"
 E_FULL      "full"
 E_PATH1      {SLASH}{SEMIROUTE}+{NAME_FILE}
 E_PATH2     \"{SLASH}({LETRAS}|{ENTERO}|{SLASH}|" ")+{NAME_FILE}\"
+E_REPNAME1      {SLASH}{SEMIROUTE}+{REP_NAME_FILE}
+E_REPNAME2     \"{SLASH}({LETRAS}|{ENTERO}|{SLASH}|" ")+{REP_NAME_FILE}\"
 E_NAME1      {LETRAS}({LETRAS}|{ENTERO})*
 E_NAME2     \"{LETRAS}({LETRAS}|{ENTERO}|" ")*\"
 E_IDES    {ENTERO}[a-z]{1,2}
@@ -92,6 +94,7 @@ DISK_EXTENTION1  "dk"
 DISK_EXTENTION2  "disk"
 SCRIPT_EXTENTION    "script"
 NAME_FILE   {LETRAS}({LETRAS}|{ENTERO})*"."({DISK_EXTENTION2}|{DISK_EXTENTION1}|{SCRIPT_EXTENTION})
+REP_NAME_FILE {LETRAS}({LETRAS}|{ENTERO})*(".pdf"|".jpg")
 DELIMITADOR [\t\r\f" "]
 COMENTARIO  #([^#|^\n|^\r\n])*(#)?
 
@@ -172,6 +175,8 @@ COMENTARIO  #([^#|^\n|^\r\n])*(#)?
 {E_NAME2}    {strcpy(yylval.text, yytext); return(e_name);}
 {E_IDES}      {strcpy(yylval.text, yytext); return(e_id);}
 
+{E_REPNAME1} {strcpy(yylval.text, yytext); return(e_pdf_path);}
+{E_REPNAME2}  {strcpy(yylval.text, yytext); return(e_pdf_path);}
 
 
 {DELIMITADOR}           {}

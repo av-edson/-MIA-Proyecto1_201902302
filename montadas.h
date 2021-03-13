@@ -14,11 +14,12 @@ class montadas {
     char letra;
     string id;
     string nombre;
-    int carnet = 02;
+    string carnet = "02";
 public:
     void savePartition(string path, list<montadas> *listaMontadas, string _nombre);
    string getName();
    string getId();
+   string getPath();
 };
 
 
