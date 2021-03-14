@@ -13,16 +13,17 @@ extern void cleanEs();
 
 void mostrarMenu();
 string pedirEntrada();
-void leerEntrada(string entrada, list<montadas> *listaMontadas);
+void leerEntrada(string entrada, list<montadas> *listaMontadas, string *usuarioActual);
 void mostrarDatos(std::array<std::string, 11> lista);
-void readFile(string path, list<montadas> *listaMontadas);
+void readFile(string path, list<montadas> *listaMontadas, string *usuarioActual);
 
 int main(){
     list<montadas> listaMontadas;
+    string usuarioActual="";
     mostrarMenu();
     while (true)
     {
-        leerEntrada(pedirEntrada(), &listaMontadas);
+        leerEntrada(pedirEntrada(), &listaMontadas, &usuarioActual);
     }
     return 0;
 }
@@ -43,7 +44,7 @@ string pedirEntrada(){
     return input;
 }
 
-void leerEntrada(string entrada, list<montadas> *lista){
+void leerEntrada(string entrada, list<montadas> *lista, string *usuarioActual){
     // cout << "       leyendo--" << entrada  << endl;
     YY_BUFFER_STATE buffer = yy_scan_string(entrada.c_str());
     if (yyparse() == 0)
@@ -52,12 +53,12 @@ void leerEntrada(string entrada, list<montadas> *lista){
         datos = getDatos();
         if (datos[0] == "7")
         {
-            readFile(datos[4], lista);
+            readFile(datos[4], lista, usuarioActual);
         }
         else{
             // mandando el array para su procesamiento
 
-            readArguments(datos, lista);
+            readArguments(datos, lista, usuarioActual);
         }
 
 
@@ -75,7 +76,7 @@ void mostrarDatos(std::array<std::string, 11> lista){
     cout << "\n";
 }
 
-void readFile(string path, list<montadas> *lista){
+void readFile(string path, list<montadas> *lista, string *usuarioActual){
     ifstream archivo(path);
     if (archivo.good())
     {
@@ -92,7 +93,7 @@ void readFile(string path, list<montadas> *lista){
                     // // pidiendo array de los datos almacenados por los analizadores
                     // mostrarDatos(datos);
                     // mandando el array para su procesamiento
-                    readArguments( getDatos(), lista);
+                    readArguments( getDatos(), lista, usuarioActual);
                     cout << endl;
                 }
                 else{

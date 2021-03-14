@@ -11,5 +11,8 @@
 
 void graficarMBR(std::string path, std::string idDisk);
 void graficarDisk(std::string path, std::string id);
+void graficarSB(std::string path, std::string nombre);
+void graficarBmInode(std::string path, std::string nombre);
+void graficarBmBlock(std::string path, std::string nombre);
 
 #endif //PROYECTO_GRAFICADOR_H

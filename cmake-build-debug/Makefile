@@ -278,6 +278,33 @@ Graphics/graficador.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Proyecto.dir/build.make CMakeFiles/Proyecto.dir/Graphics/graficador.cpp.s
 .PHONY : Graphics/graficador.cpp.s
 
+Modules/UsserModule.o: Modules/UsserModule.cpp.o
+
+.PHONY : Modules/UsserModule.o
+
+# target to build an object file
+Modules/UsserModule.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Proyecto.dir/build.make CMakeFiles/Proyecto.dir/Modules/UsserModule.cpp.o
+.PHONY : Modules/UsserModule.cpp.o
+
+Modules/UsserModule.i: Modules/UsserModule.cpp.i
+
+.PHONY : Modules/UsserModule.i
+
+# target to preprocess a source file
+Modules/UsserModule.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Proyecto.dir/build.make CMakeFiles/Proyecto.dir/Modules/UsserModule.cpp.i
+.PHONY : Modules/UsserModule.cpp.i
+
+Modules/UsserModule.s: Modules/UsserModule.cpp.s
+
+.PHONY : Modules/UsserModule.s
+
+# target to generate assembly for a file
+Modules/UsserModule.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Proyecto.dir/build.make CMakeFiles/Proyecto.dir/Modules/UsserModule.cpp.s
+.PHONY : Modules/UsserModule.cpp.s
+
 Modules/diskModule.o: Modules/diskModule.cpp.o
 
 .PHONY : Modules/diskModule.o
@@ -383,6 +410,9 @@ help:
 	@echo "... Graphics/graficador.o"
 	@echo "... Graphics/graficador.i"
 	@echo "... Graphics/graficador.s"
+	@echo "... Modules/UsserModule.o"
+	@echo "... Modules/UsserModule.i"
+	@echo "... Modules/UsserModule.s"
 	@echo "... Modules/diskModule.o"
 	@echo "... Modules/diskModule.i"
 	@echo "... Modules/diskModule.s"

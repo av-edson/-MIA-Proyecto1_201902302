@@ -8,4 +8,4 @@ add_executable(Proyecto main.cpp
         Analizer/scanner.cpp
         Flow/rooter.cpp
         Modules/diskModule.cpp
-        Graphics/graficador.h Graphics/graficador.cpp Estructs/partitionMount.cpp Estructs/partitionMount.h montadas.cpp montadas.h)
+        Graphics/graficador.h Graphics/graficador.cpp Estructs/partitionMount.cpp Estructs/partitionMount.h montadas.cpp montadas.h Estructs/fileSistemStructs.h Modules/usserModule.h Modules/UsserModule.cpp)

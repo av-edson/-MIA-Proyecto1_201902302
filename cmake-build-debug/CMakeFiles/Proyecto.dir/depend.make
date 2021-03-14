@@ -11,17 +11,28 @@ CMakeFiles/Proyecto.dir/Estructs/partitionMount.cpp.o: ../Estructs/diskStructs.h
 CMakeFiles/Proyecto.dir/Estructs/partitionMount.cpp.o: ../Estructs/partitionMount.cpp
 CMakeFiles/Proyecto.dir/Estructs/partitionMount.cpp.o: ../Estructs/partitionMount.h
 
+CMakeFiles/Proyecto.dir/Flow/rooter.cpp.o: ../Estructs/diskStructs.h
+CMakeFiles/Proyecto.dir/Flow/rooter.cpp.o: ../Estructs/fileSistemStructs.h
 CMakeFiles/Proyecto.dir/Flow/rooter.cpp.o: ../Flow/rooter.cpp
 CMakeFiles/Proyecto.dir/Flow/rooter.cpp.o: ../Flow/rooter.h
 CMakeFiles/Proyecto.dir/Flow/rooter.cpp.o: ../Graphics/graficador.h
 CMakeFiles/Proyecto.dir/Flow/rooter.cpp.o: ../Modules/diskModule.h
+CMakeFiles/Proyecto.dir/Flow/rooter.cpp.o: ../Modules/usserModule.h
 CMakeFiles/Proyecto.dir/Flow/rooter.cpp.o: ../montadas.h
 
 CMakeFiles/Proyecto.dir/Graphics/graficador.cpp.o: ../Estructs/diskStructs.h
+CMakeFiles/Proyecto.dir/Graphics/graficador.cpp.o: ../Estructs/fileSistemStructs.h
 CMakeFiles/Proyecto.dir/Graphics/graficador.cpp.o: ../Graphics/graficador.cpp
 CMakeFiles/Proyecto.dir/Graphics/graficador.cpp.o: ../Graphics/graficador.h
 
+CMakeFiles/Proyecto.dir/Modules/UsserModule.cpp.o: ../Estructs/diskStructs.h
+CMakeFiles/Proyecto.dir/Modules/UsserModule.cpp.o: ../Estructs/fileSistemStructs.h
+CMakeFiles/Proyecto.dir/Modules/UsserModule.cpp.o: ../Modules/UsserModule.cpp
+CMakeFiles/Proyecto.dir/Modules/UsserModule.cpp.o: ../Modules/usserModule.h
+CMakeFiles/Proyecto.dir/Modules/UsserModule.cpp.o: ../montadas.h
+
 CMakeFiles/Proyecto.dir/Modules/diskModule.cpp.o: ../Estructs/diskStructs.h
+CMakeFiles/Proyecto.dir/Modules/diskModule.cpp.o: ../Estructs/fileSistemStructs.h
 CMakeFiles/Proyecto.dir/Modules/diskModule.cpp.o: ../Modules/diskModule.cpp
 CMakeFiles/Proyecto.dir/Modules/diskModule.cpp.o: ../Modules/diskModule.h
 CMakeFiles/Proyecto.dir/Modules/diskModule.cpp.o: ../montadas.h

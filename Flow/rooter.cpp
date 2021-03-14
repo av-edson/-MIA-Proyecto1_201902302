@@ -3,6 +3,7 @@
 #include "list"
 #include "../montadas.h"
 #include "../Graphics/graficador.h"
+#include "../Modules/usserModule.h"
 
 using namespace std;
 
@@ -11,8 +12,9 @@ bool rootFdisk(std::array<std::string, 11> args);
 bool rootGraphics(std::array<std::string, 11>args, list<montadas> *listaMontadas);
 bool rootMount(std::array<std::string, 11>args, list<montadas> *listaMontadas);
 bool rootUnMount(std::array<std::string, 11>args, list<montadas> *listaMontadas);
+bool rootMkfs(std::array<std::string, 11>args, list<montadas> *listaMontadas);
 
-void readArguments(std::array<std::string, 11> lista, list<montadas> *listaMontadas){
+void readArguments(std::array<std::string, 11> lista, list<montadas> *listaMontadas, string *usuarioActual){
     string opcionFuncion = lista[0];
     bool resultFuction = false;
     switch (atoi(opcionFuncion.c_str()))
@@ -32,8 +34,23 @@ void readArguments(std::array<std::string, 11> lista, list<montadas> *listaMonta
         case 5:
             resultFuction = rootUnMount(lista, listaMontadas);
             break;
+        case 6:
+            resultFuction = rootMkfs(lista, listaMontadas);
         case 66:
             resultFuction = rootGraphics(lista, listaMontadas);
+            break;
+        case 8:
+            if (lista[7] != "-1"){
+                resultFuction = loginUsser(lista[6], lista[7], lista[8], listaMontadas, usuarioActual);
+            }else{
+                resultFuction = loginUsser(lista[6], lista[4],lista[8], listaMontadas, usuarioActual);
+            }
+            break;
+        case 9:
+            resultFuction = logoutUsser(usuarioActual);
+            break;
+        default:
+            resultFuction = true;
     }
 
     if (resultFuction)
@@ -109,6 +126,12 @@ bool rootGraphics(std::array<std::string, 11>args, list<montadas> *listaMontadas
             graficarDisk(aux.getPath(), args[4]);
         }else if (toLower(args[6]) == "mbr"){
             graficarMBR(aux.getPath(), args[4]);
+        }else if (toLower(args[6])=="sb"){
+            graficarSB(aux.getPath(), aux.getName());
+        }else if (toLower(args[6])=="bm_inode"){
+            graficarBmInode(aux.getPath(), aux.getName());
+        }else if (toLower(args[6])=="bm_block"){
+            graficarBmBlock(aux.getPath(), aux.getName());
         }
         return true;
     }catch (char pr){
@@ -128,5 +151,14 @@ bool rootMount(std::array<std::string, 11>args, list<montadas> *listaMontadas){
 }
 
 bool rootUnMount(std::array<std::string, 11>args, list<montadas> *listaMontadas){
-        return desmontar(args[4],args[6] ,listaMontadas);
+        return desmontar(args[8] ,listaMontadas);
+}
+
+bool rootMkfs(std::array<std::string, 11>args, list<montadas> *listaMontadas){
+   try{
+       return makefilesystem(args[8], args[10], args[9], listaMontadas);
+   }catch (char pr){
+       cout << "   -- Ocurrio un error al crear sistema --" << endl;
+       return false;
+   }
 }

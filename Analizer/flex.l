@@ -116,7 +116,14 @@ COMENTARIO  #([^#|^\n|^\r\n])*(#)?
  "rep"          {strcpy(yylval.text, yytext); return(rep);}
  "mbr"        {strcpy(yylval.text, yytext); return(r_mbr);}
  "disk"        {strcpy(yylval.text, yytext); return(r_disk);}
-
+   "2fs"        {strcpy(yylval.text, yytext); return(fs_option);}
+   "3fs"        {strcpy(yylval.text, yytext); return(fs_option);}
+   "sb"         {strcpy(yylval.text, yytext); return(sb);}
+   "bm_inode"   {strcpy(yylval.text, yytext); return(bm_inode);}
+    "bm_block" {strcpy(yylval.text, yytext); return(bm_block);}
+    /*---------- para login */
+ "-pwd"     {strcpy(yylval.text, yytext); return(p_pass);}
+ "-usr"     {strcpy(yylval.text, yytext); return(p_ussr);}
 
 {F_PAUSE}   {return(pausado);}
 {F_MKDISK} {return(mkdisk);}
@@ -126,8 +133,8 @@ COMENTARIO  #([^#|^\n|^\r\n])*(#)?
 {F_UNMOUNT} {return(unmount);}
 {F_MKFS}    {return(mkfs);}
 
-{F_LOGIN}   {printf("Funcion login %s ", yytext);}
-{F_LOGOUT}  {printf("Funcion logout %s ", yytext);}
+{F_LOGIN}   {return(login);}
+{F_LOGOUT}  {return(logout);}
 {F_MKGRP}   {printf("Funcion mkgrp %s ", yytext);}
 {F_RMGRP}   {printf("Funcion rmgrp %s ", yytext);}
 {F_MKURS}   {printf("Funcion mkurs %s ", yytext);}
@@ -155,7 +162,7 @@ COMENTARIO  #([^#|^\n|^\r\n])*(#)?
 {P_DELETE}  {return(dele);}
 {P_ADD}     {return(add);}
 {P_ID}      {return(id);}
-{P_FORMAT}  {}
+{P_FORMAT}  {return(fs);}
 
 
 {E_PATH1}    {strcpy(yylval.text, yytext); return(e_path);}

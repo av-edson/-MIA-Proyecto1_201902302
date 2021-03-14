@@ -3,6 +3,7 @@
 //
 #include "graficador.h"
 #include "../Estructs/diskStructs.h"
+#include "../Estructs/fileSistemStructs.h"
 #include <stdio.h>
 #include "list"
 #include "fstream"
@@ -126,4 +127,76 @@ string recuperarLogicas(string path, EBR logica, int id, int tamano){
     fclose(archivo);
     aux.append("}\n");
     return aux;
+}
+
+SUPERBLOQUE getSuperBloque(string path, string nombreDisk){
+    FILE *archivo = fopen(path.c_str(), "rb+");
+    MBR tempDisk{};
+    fread(&tempDisk, sizeof(tempDisk), 1, archivo);
+    SUPERBLOQUE super{};
+    for (PARTITION part:  tempDisk.mbr_partition){
+        if (part.part_name == nombreDisk){
+            fseek(archivo, part.part_start+1, SEEK_SET);
+            fread(&super, sizeof(super), 1, archivo);
+            break;
+        }
+    }
+    fclose(archivo);
+    return super;
+}
+
+void graficarSB(std::string path, std::string nombre){
+    SUPERBLOQUE super = getSuperBloque(path, nombre);
+    // escribiendo contenido del superbloque
+    string contenido = "digraph D{node [ shape=none, margin=0 ]\n";
+    contenido.append("nuevo [label=<<TABLE  BORDER=\"1\" CELLBORDER=\"1\">\n<tr><td BGCOLOR=\"#229954\">Nombre</td><td BGCOLOR=\"#229954\">Valor</td></tr>\n");
+    contenido.append("<tr><td>tipo sistema</td><td>"+to_string(super.s_filesystem_type)+"</td></tr>\n");
+    contenido.append("<tr><td>s_inodes_count</td><td>"+to_string(super.s_inodes_count)+"</td></tr>\n");
+    contenido.append("<tr><td>s_blocks_count</td><td>"+to_string(super.s_blocks_count)+"</td></tr>\n");
+    contenido.append("<tr><td>s_free_blocks_count</td><td>"+to_string(super.s_free_blocks_count)+"</td></tr>\n");
+    contenido.append("<tr><td>s_free_inodes_count</td><td>"+to_string(super.s_free_inodes_count)+"</td></tr>\n");
+    contenido.append("<tr><td>s_mtime</td><td>");
+    contenido.append(asctime(gmtime(&super.s_mtime))); contenido.append("</td></tr>\n");
+    contenido.append("<tr><td>s_umtime</td><td>");
+    contenido.append(asctime(gmtime(&super.s_umtime))); contenido.append("</td></tr>\n");
+    contenido.append("<tr><td>s_mnt_count</td><td>"+to_string(super.s_mnt_count)+"</td></tr>\n");
+    contenido.append("<tr><td>s_magic</td><td>"+to_string(super.s_magic)+"</td></tr>\n");
+    contenido.append("<tr><td>s_inode_size</td><td>"+to_string(super.s_inode_size)+"</td></tr>\n");
+    contenido.append("<tr><td>s_block_size</td><td>"+to_string(super.s_block_size)+"</td></tr>\n");
+    contenido.append("<tr><td>s_firts_ino</td><td>"+to_string(super.s_firts_ino)+"</td></tr>\n");
+    contenido.append("<tr><td>s_first_blo</td><td>"+to_string(super.s_first_blo)+"</td></tr>\n");
+    contenido.append("<tr><td>s_bm_inode_start</td><td>"+to_string(super.s_bm_inode_start)+"</td></tr>\n");
+    contenido.append("<tr><td>s_bm_block_start</td><td>"+to_string(super.s_bm_block_start)+"</td></tr>\n");
+    contenido.append("<tr><td>s_inode_start</td><td>"+to_string(super.s_inode_start)+"</td></tr>\n");
+    contenido.append("<tr><td>s_block_start</td><td>"+to_string(super.s_block_start)+"</td></tr>\n");
+    contenido.append("</TABLE>>]\n}");
+    exportar(contenido,"superBloque.dot");
+}
+
+void graficarBmInode(std::string path, std::string nombre){
+    SUPERBLOQUE superbloque = getSuperBloque(path, nombre);
+    FILE *archivo = fopen(path.c_str(), "rb+");
+    fseek(archivo, superbloque.s_bm_inode_start, SEEK_SET);
+    string contenido="  BITMAP INODOS\n";
+    for (int i = 0; i < superbloque.s_inodes_count; ++i) {
+        if (i%20 == 0 && i!= 0) contenido.append("\n");
+        char aux;
+        fread(&aux, sizeof(aux),1,archivo);
+        contenido.append(string(1,aux)+" ");
+    }
+    exportar(contenido, "bm_inodos.txt");
+}
+
+void graficarBmBlock(std::string path, std::string nombre){
+    SUPERBLOQUE superbloque = getSuperBloque(path, nombre);
+    FILE *archivo = fopen(path.c_str(), "rb+");
+    fseek(archivo, superbloque.s_bm_block_start, SEEK_SET);
+    string contenido="  BITMAP BLOQUES\n";
+    for (int i = 0; i < superbloque.s_blocks_count; ++i) {
+        if (i%20 == 0 && i!= 0) contenido.append("\n");
+        char aux;
+        fread(&aux, sizeof(aux),1,archivo);
+        contenido.append(string(1,aux)+" ");
+    }
+    exportar(contenido, "bm_bloques.txt");
 }

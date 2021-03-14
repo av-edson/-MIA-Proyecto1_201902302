@@ -15,6 +15,8 @@ bool fdiskF(int _size, std::string _units, std::string _path, std::string _type,
 
 bool montar(std::string path,std::string namePart,list<montadas> *listaMontadas);
 
-bool desmontar(std::string path,std::string namePart,list<montadas> *listaMontadas);
+bool desmontar(std::string namePart,list<montadas> *listaMontadas);
+
+bool makefilesystem(string id, string type, string tipo, list<montadas> *listaMontadas);
 
 #endif

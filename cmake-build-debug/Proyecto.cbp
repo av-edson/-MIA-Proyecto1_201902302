@@ -94,6 +94,9 @@
 		<Unit filename="/home/edson/CLionProjects/Proyecto/Analizer/scanner.h">
 			<Option target="Proyecto"/>
 		</Unit>
+		<Unit filename="/home/edson/CLionProjects/Proyecto/Estructs/fileSistemStructs.h">
+			<Option target="Proyecto"/>
+		</Unit>
 		<Unit filename="/home/edson/CLionProjects/Proyecto/Estructs/partitionMount.cpp">
 			<Option target="Proyecto"/>
 		</Unit>
@@ -112,10 +115,16 @@
 		<Unit filename="/home/edson/CLionProjects/Proyecto/Graphics/graficador.h">
 			<Option target="Proyecto"/>
 		</Unit>
+		<Unit filename="/home/edson/CLionProjects/Proyecto/Modules/UsserModule.cpp">
+			<Option target="Proyecto"/>
+		</Unit>
 		<Unit filename="/home/edson/CLionProjects/Proyecto/Modules/diskModule.cpp">
 			<Option target="Proyecto"/>
 		</Unit>
 		<Unit filename="/home/edson/CLionProjects/Proyecto/Modules/diskModule.h">
+			<Option target="Proyecto"/>
+		</Unit>
+		<Unit filename="/home/edson/CLionProjects/Proyecto/Modules/usserModule.h">
 			<Option target="Proyecto"/>
 		</Unit>
 		<Unit filename="/home/edson/CLionProjects/Proyecto/main.cpp">

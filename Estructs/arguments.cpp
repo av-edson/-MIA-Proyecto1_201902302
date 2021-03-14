@@ -9,9 +9,11 @@
  *  3- fdisk
  *  4- mount
  *  5- unmount
- *  6
+ *  6 - mkfs
  *  7- readFile
  *  66- graficar
+ *  8- login
+ *  9- logout
  */
 using namespace std;
 
@@ -28,7 +30,6 @@ struct argumentos
     char disk_ides[20];
     char format[3];
     char delet[15];
-    bool readFile;
 };
 
 void cleanStruct(struct argumentos *entrace, int type){
@@ -44,7 +45,6 @@ void cleanStruct(struct argumentos *entrace, int type){
         strcpy(entrace->disk_ides, "");
         strcpy(entrace->format, "");
         strcpy(entrace->delet, "");
-        entrace->readFile = false;
     }
 }
 
@@ -118,7 +118,10 @@ void addDelete(char *del, struct argumentos *info, int type){
     // printf("    delete size added--%s", info->delet);
 }
 
-void addFormat(char format);
+void addFormat(char *foorm, struct argumentos *info, int type){
+    strcpy(info->format, foorm);
+    info->function = type;
+}
 
 void showArguments(struct argumentos *info){
     printf(" -----------  struc reporter -------------\n");
@@ -168,7 +171,7 @@ std::array<std::string, 11> privateData(struct argumentos *info){
         case 8:
             datos[x] = info->disk_ides;
             break;
-        case 11:
+        case 9:
             datos[x] = info->format;
             break;
         case 10:

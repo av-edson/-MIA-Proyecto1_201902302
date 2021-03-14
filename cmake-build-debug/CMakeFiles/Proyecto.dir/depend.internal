@@ -12,17 +12,28 @@ CMakeFiles/Proyecto.dir/Estructs/partitionMount.cpp.o
  /home/edson/CLionProjects/Proyecto/Estructs/partitionMount.cpp
  /home/edson/CLionProjects/Proyecto/Estructs/partitionMount.h
 CMakeFiles/Proyecto.dir/Flow/rooter.cpp.o
+ /home/edson/CLionProjects/Proyecto/Estructs/diskStructs.h
+ /home/edson/CLionProjects/Proyecto/Estructs/fileSistemStructs.h
  /home/edson/CLionProjects/Proyecto/Flow/rooter.cpp
  /home/edson/CLionProjects/Proyecto/Flow/rooter.h
  /home/edson/CLionProjects/Proyecto/Graphics/graficador.h
  /home/edson/CLionProjects/Proyecto/Modules/diskModule.h
+ /home/edson/CLionProjects/Proyecto/Modules/usserModule.h
  /home/edson/CLionProjects/Proyecto/montadas.h
 CMakeFiles/Proyecto.dir/Graphics/graficador.cpp.o
  /home/edson/CLionProjects/Proyecto/Estructs/diskStructs.h
+ /home/edson/CLionProjects/Proyecto/Estructs/fileSistemStructs.h
  /home/edson/CLionProjects/Proyecto/Graphics/graficador.cpp
  /home/edson/CLionProjects/Proyecto/Graphics/graficador.h
+CMakeFiles/Proyecto.dir/Modules/UsserModule.cpp.o
+ /home/edson/CLionProjects/Proyecto/Estructs/diskStructs.h
+ /home/edson/CLionProjects/Proyecto/Estructs/fileSistemStructs.h
+ /home/edson/CLionProjects/Proyecto/Modules/UsserModule.cpp
+ /home/edson/CLionProjects/Proyecto/Modules/usserModule.h
+ /home/edson/CLionProjects/Proyecto/montadas.h
 CMakeFiles/Proyecto.dir/Modules/diskModule.cpp.o
  /home/edson/CLionProjects/Proyecto/Estructs/diskStructs.h
+ /home/edson/CLionProjects/Proyecto/Estructs/fileSistemStructs.h
  /home/edson/CLionProjects/Proyecto/Modules/diskModule.cpp
  /home/edson/CLionProjects/Proyecto/Modules/diskModule.h
  /home/edson/CLionProjects/Proyecto/montadas.h

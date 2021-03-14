@@ -44,6 +44,12 @@ int yyerror(const char* msg){
 %token <other> rep
 %token <text> r_mbr
 %token <text> r_disk
+%token <other> fs
+%token <text> sb
+%token <other> p_pass
+%token <other> p_ussr
+%token <other> login
+%token <other> logout
 
 /* entradas */
 %token <number> number
@@ -55,7 +61,9 @@ int yyerror(const char* msg){
 %token <entrace> e_delete
 %token <text> e_name
 %token <entrace> e_id
-
+%token <text> fs_option
+%token <text> bm_inode
+%token <text> bm_block
 
 %start ACTION
 
@@ -79,7 +87,10 @@ ACTION: show{showArguments(&data);}
           | FDISK_F
           | MOUNT_F
           | UNMOUNT_F
+          | MKFS
           | REPORTS
+          | LOGIN_F
+          | LOGOUT_F
         ;
 
 MKDISK_F: mkdisk MKPARAMS;
@@ -104,8 +115,7 @@ FDPARAMS: FDPARAM FDPARAMS
           | FDPARAM
   ;
 
-FDPARAM: size igual number  {
-          cleanStruct(&data, 3); addSize($3, &data, 3);}
+FDPARAM: size igual number  {cleanStruct(&data, 3); addSize($3, &data, 3);}
         | units igual e_units {cleanStruct(&data, 3); addUnits($3, &data, 3);}
         | path igual e_path {cleanStruct(&data, 3); addPath($3, &data, 3);}
         | type igual e_type {cleanStruct(&data, 3); addType($3, &data, 3);}
@@ -131,10 +141,28 @@ REPORTSPARAMS: REPORTSPARAM REPORTSPARAMS
 		| REPORTSPARAM;
 REPORTSPARAM: name igual r_mbr {cleanStruct(&data, 66); addNameDisk($3, &data, 66);}
 		| name igual r_disk {cleanStruct(&data, 66); addNameDisk($3, &data, 66);}
+		| name igual sb {cleanStruct(&data, 66); addNameDisk($3, &data, 66);}
+		| name igual bm_block {cleanStruct(&data, 66); addNameDisk($3, &data, 66);}
+		| name igual bm_inode {cleanStruct(&data, 66); addNameDisk($3, &data, 66);}
 		| path igual e_pdf_path {cleanStruct(&data, 66); addPath($3, &data, 66);}
 		| id igual e_id {cleanStruct(&data, 66); addDiskIde($3, &data, 66);};
 
+MKFS: mkfs MKFS_PARAMS;
+MKFS_PARAMS: MKFS_PARAM MKFS_PARAMS
+		|MKFS_PARAM;
+MKFS_PARAM: id igual e_id{cleanStruct(&data, 6); addDiskIde($3, &data, 6);}
+		| type igual e_delete{cleanStruct(&data, 6); addType($3, &data,6);}
+		| fs igual fs_option{cleanStruct(&data, 6); addFormat($3, &data,6);};
 
+/* ------------------------------------  		USUARIOS Y GRUPOS		--------------------*/
+LOGIN_F: login LOGINPARAMS;
+LOGINPARAMS: LOGINPARAM LOGINPARAMS
+		| LOGINPARAM;
+LOGINPARAM : p_ussr igual e_name{cleanStruct(&data, 8); addNameDisk($3, &data, 8);}
+		| p_pass igual e_name{cleanStruct(&data, 8); addPath($3, &data, 8);}
+		| p_pass igual number{cleanStruct(&data, 8); addSizeAdd($3, &data, 8);}
+		| id igual e_id{cleanStruct(&data, 8); addDiskIde($3, &data,8);};
+LOGOUT_F: logout{cleanStruct(&data, 9);addSizeAdd(1, &data, 9);};
 %%
 std::array<std::string, 11> getDatos(){
     std::array<string, 11> datos;
