@@ -7,16 +7,68 @@
 #include <stdio.h>
 #include "list"
 #include "fstream"
+#include "dirent.h"
 using namespace std;
 string getNombrePath(string path);
 extern bool obtenerMontada(string id,list<montadas> *listaMontadas, montadas *montada);
 extern list<char> getContenidoUsser(string idPart, montadas montadaE);
 
-void exportar(string contenido,string nombre){
+string getRutaCarpetas(string ruta){
+    string aux=""; int inicio = 1; int fin=0;
+    string path;
+    while (fin = ruta.find('/', inicio), fin>=0){
+        aux = ruta.substr(inicio, fin - inicio);
+        inicio = fin+1;
+        path.append("/"+aux);
+    }
+    return path;
+}
+
+string getTipoDot(string ruta){
+    string nombreArchivo = getNombrePath(ruta);
+    nombreArchivo = nombreArchivo.substr(nombreArchivo.length()-3, nombreArchivo.length());
+    if (nombreArchivo=="jpg"){
+        return "-Tjpg";
+    }else {
+        return "-Tpdf";
+    }
+}
+
+void exportar(string contenido,string pathResultado, string nombre){
     ofstream salida;
-    salida.open("/home/edson/CLionProjects/Proyecto/resultados/"+nombre);
+    string pathDot = "/home/edson/CLionProjects/Proyecto/resultados/"+nombre;
+    salida.open(pathDot);
     salida << contenido;
     salida.close();
+    string pathCarpeta = getRutaCarpetas(pathResultado);
+    DIR *directorio;
+    string cmd = "sudo mkdir -p '"+pathCarpeta+"'";
+    if (directorio=opendir(pathCarpeta.c_str())){
+        cmd="";
+    }else{
+        system(cmd.c_str());
+    }
+    closedir(directorio);
+    // permisos de ejecucion a la carpeta resultante
+    cmd = "sudo chmod -R 777 '"+pathCarpeta+"'";
+    system(cmd.c_str());
+    cmd = "dot "+getTipoDot(pathResultado)+" '"+pathDot+"' -o '"+pathResultado+"'";
+    system(cmd.c_str());
+}
+void exportarTxt(string contenido, string ruta){
+    string pathCarpeta = getRutaCarpetas(ruta);
+    DIR *directorio;
+    string cmd = "sudo mkdir -p '"+pathCarpeta+"'";
+    if (directorio=opendir(pathCarpeta.c_str())){
+        cmd="";
+    }else{
+        system(cmd.c_str());
+    }
+    closedir(directorio);
+    ofstream archivoSalida;
+    archivoSalida.open(ruta);
+    archivoSalida << contenido;
+    archivoSalida.close();
 }
 
 EBR getLogica(std::string path, int inicioExtendida){
@@ -28,7 +80,7 @@ EBR getLogica(std::string path, int inicioExtendida){
     return temp;
 }
 
-void graficarMBR(std::string path, std::string idDisk){
+void graficarMBR(std::string path, std::string pathResultante){
     FILE *archivo = fopen(path.c_str(), "rb+");
     MBR tempDisk{};
     fread(&tempDisk, sizeof(tempDisk), 1, archivo);
@@ -75,7 +127,7 @@ void graficarMBR(std::string path, std::string idDisk){
     }
     contenido.append("}");
     fclose(archivo);
-    exportar(contenido, "mbr.dot");
+    exportar(contenido, pathResultante, "mbr.dot");
 }
 
 string recuperarLogicas(string path, EBR logica, int id, int tamano);
@@ -147,7 +199,7 @@ void graficarDisk(std::string path, std::string pathResultado){
     }
     float division = getPorcentaje(tempDisk.mbr_tamano-inicioAnterior, tempDisk.mbr_tamano);
     contenid.append("\""+to_string(id)+"LIBRE\n"+to_string(division)+"% del disco\"\n}");
-    exportar(contenid,"disk.dot");
+    exportar(contenid,pathResultado, "disk.dot");
 }
 
 string recuperarLogicas(string path, EBR logica, int id, int tamano){
@@ -181,7 +233,7 @@ SUPERBLOQUE getSuperBloque(string path, string nombreDisk){
     return super;
 }
 
-void graficarSB(std::string path, std::string nombre){
+void graficarSB(std::string path, std::string nombre,string pathResultante){
     SUPERBLOQUE super = getSuperBloque(path, nombre);
     // escribiendo contenido del superbloque
     string contenido = "digraph D{node [ shape=none, margin=0 ]\n";
@@ -206,12 +258,12 @@ void graficarSB(std::string path, std::string nombre){
     contenido.append("<tr><td>s_inode_start</td><td>"+to_string(super.s_inode_start)+"</td></tr>\n");
     contenido.append("<tr><td>s_block_start</td><td>"+to_string(super.s_block_start)+"</td></tr>\n");
     contenido.append("</TABLE>>]\n}");
-    exportar(contenido,"superBloque.dot");
+    exportar(contenido, pathResultante,"superBloque.dot");
 }
 
-void graficarBmInode(std::string path, std::string nombre){
-    SUPERBLOQUE superbloque = getSuperBloque(path, nombre);
-    FILE *archivo = fopen(path.c_str(), "rb+");
+void graficarBmInode(std::string path, std::string nombre, string pathDisco){
+    SUPERBLOQUE superbloque = getSuperBloque(pathDisco, nombre);
+    FILE *archivo = fopen(pathDisco.c_str(), "rb+");
     fseek(archivo, superbloque.s_bm_inode_start, SEEK_SET);
     string contenido="  BITMAP INODOS\n";
     for (int i = 0; i < superbloque.s_inodes_count; ++i) {
@@ -220,12 +272,12 @@ void graficarBmInode(std::string path, std::string nombre){
         fread(&aux, sizeof(aux),1,archivo);
         contenido.append(string(1,aux)+" ");
     }
-    exportar(contenido, "bm_inodos.txt");
+    exportarTxt(contenido, path);
 }
 
-void graficarBmBlock(std::string path, std::string nombre){
-    SUPERBLOQUE superbloque = getSuperBloque(path, nombre);
-    FILE *archivo = fopen(path.c_str(), "rb+");
+void graficarBmBlock(std::string pathsalida, std::string nombre, string pathDisco){
+    SUPERBLOQUE superbloque = getSuperBloque(pathDisco, nombre);
+    FILE *archivo = fopen(pathDisco.c_str(), "rb+");
     fseek(archivo, superbloque.s_bm_block_start, SEEK_SET);
     string contenido="  BITMAP BLOQUES\n";
     for (int i = 0; i < superbloque.s_blocks_count; ++i) {
@@ -234,7 +286,7 @@ void graficarBmBlock(std::string path, std::string nombre){
         fread(&aux, sizeof(aux),1,archivo);
         contenido.append(string(1,aux)+" ");
     }
-    exportar(contenido, "bm_bloques.txt");
+    exportarTxt(contenido, pathsalida);
 }
 
 string contenidoUssers(list<char> contenido){
@@ -255,8 +307,7 @@ void graficarUssersTxt(std::string path, std::string idPart, std::string fileNam
         if (fileName=="/users.txt"){
             string contenido = contenidoUssers(getContenidoUsser(idPart, montada));
             int tamano = contenido.size();
-            cout << tamano << endl;
-            exportar(contenido, "users.txt");
+            exportarTxt(contenido, path);
         }else{
             cout << "   -Funcion no terminada de implementar-"<<endl;
             return;

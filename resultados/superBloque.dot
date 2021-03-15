@@ -2,23 +2,23 @@ digraph D{node [ shape=none, margin=0 ]
 nuevo [label=<<TABLE  BORDER="1" CELLBORDER="1">
 <tr><td BGCOLOR="#229954">Nombre</td><td BGCOLOR="#229954">Valor</td></tr>
 <tr><td>tipo sistema</td><td>2</td></tr>
-<tr><td>s_inodes_count</td><td>101803</td></tr>
-<tr><td>s_blocks_count</td><td>305409</td></tr>
-<tr><td>s_free_blocks_count</td><td>305407</td></tr>
-<tr><td>s_free_inodes_count</td><td>101801</td></tr>
-<tr><td>s_mtime</td><td>Sun Mar 14 07:34:13 2021
+<tr><td>s_inodes_count</td><td>16966</td></tr>
+<tr><td>s_blocks_count</td><td>50898</td></tr>
+<tr><td>s_free_blocks_count</td><td>50895</td></tr>
+<tr><td>s_free_inodes_count</td><td>16964</td></tr>
+<tr><td>s_mtime</td><td>Mon Mar 15 01:37:11 2021
 </td></tr>
-<tr><td>s_umtime</td><td>Sun Mar 14 07:34:13 2021
+<tr><td>s_umtime</td><td>Mon Mar 15 01:37:11 2021
 </td></tr>
 <tr><td>s_mnt_count</td><td>1</td></tr>
 <tr><td>s_magic</td><td>61267</td></tr>
 <tr><td>s_inode_size</td><td>112</td></tr>
 <tr><td>s_block_size</td><td>64</td></tr>
 <tr><td>s_firts_ino</td><td>2</td></tr>
-<tr><td>s_first_blo</td><td>2</td></tr>
+<tr><td>s_first_blo</td><td>3</td></tr>
 <tr><td>s_bm_inode_start</td><td>219</td></tr>
-<tr><td>s_bm_block_start</td><td>102023</td></tr>
-<tr><td>s_inode_start</td><td>407433</td></tr>
-<tr><td>s_block_start</td><td>11809370</td></tr>
+<tr><td>s_bm_block_start</td><td>17186</td></tr>
+<tr><td>s_inode_start</td><td>68085</td></tr>
+<tr><td>s_block_start</td><td>1968278</td></tr>
 </TABLE>>]
 }

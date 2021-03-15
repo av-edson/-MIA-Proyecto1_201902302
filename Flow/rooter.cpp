@@ -137,14 +137,14 @@ bool rootGraphics(std::array<std::string, 12>args, list<montadas> *listaMontadas
         }else if (toLower(args[6]) == "mbr"){
             graficarMBR(aux.getPath(), args[4]);
         }else if (toLower(args[6])=="sb"){
-            graficarSB(aux.getPath(), aux.getName());
+            graficarSB(aux.getPath(), aux.getName(), args[4]);
         }else if (toLower(args[6])=="bm_inode"){
-            graficarBmInode(aux.getPath(), aux.getName());
+            graficarBmInode(args[4],aux.getName(),aux.getPath());
         }else if (toLower(args[6])=="bm_block"){
-            graficarBmBlock(aux.getPath(), aux.getName());
+            graficarBmBlock(args[4], aux.getName(), aux.getPath());
         }
         else if (toLower(args[6])=="file"){
-            graficarUssersTxt(aux.getPath(), aux.getId(), args[11], listaMontadas);
+            graficarUssersTxt(args[4], aux.getId(), args[11], listaMontadas);
         }
         return true;
     }catch (char pr){

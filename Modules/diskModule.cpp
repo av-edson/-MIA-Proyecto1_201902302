@@ -583,6 +583,138 @@ int getNoInodos(int tamanoDisco){
     return (tamanoDisco-80)/309;
 }
 
+bool mk3Filesystem(string id, string type, string tipo, montadas montada){
+    MBR tempDisk = getMRBDisk(montada.getPath());
+    int noInodos = getNoInodos(tempDisk.mbr_tamano);
+    int noBloques = noInodos*3;
+    //int total = noInodos + noBloques + sizeof(INODO)*noInodos + sizeof(FILEBLOCK)*noBloques + sizeof(tempDisk)+5+
+    //sizeof(SUPERBLOQUE);
+    //int res = tempDisk.mbr_tamano - total;
+    int inicioTodo,inicioAnterior;
+    for (PARTITION part: tempDisk.mbr_partition){
+        if (part.part_name == montada.getName()){
+            inicioAnterior = part.part_start+2+sizeof(SUPERBLOQUE);
+            inicioTodo = part.part_start+1;
+            break;
+        }
+    }
+    // llenando datos del superbloque
+    SUPERBLOQUE sb{};
+    sb.s_filesystem_type = 3;
+    sb.s_free_inodes_count = noInodos;
+    sb.s_inodes_count = noInodos;
+    sb.s_blocks_count = noInodos*3;
+    sb.s_free_inodes_count = noInodos;
+    sb.s_free_blocks_count = noInodos*3;
+    sb.s_mtime = time(0);
+    sb.s_umtime= time(0);
+    sb.s_mnt_count = 1;
+    sb.s_magic = 0xEF53;
+    sb.s_inode_size = sizeof(INODO);
+    sb.s_block_size = sizeof(FILEBLOCK);
+    sb.s_first_blo = 0;
+    sb.s_firts_ino = 0;
+    sb.s_bm_inode_start = inicioAnterior;
+    inicioAnterior += noInodos+1;
+    sb.s_bm_block_start = inicioAnterior;
+    inicioAnterior += noBloques+1;
+    sb.s_inode_start = inicioAnterior;
+    inicioAnterior += sizeof(INODO)*noInodos +1;
+    sb.s_block_start = inicioAnterior;
+    inicioAnterior += sizeof(FILEBLOCK)*noBloques +1;
+
+    //-- creando inodo y bloqueCarpeta de la raiz
+    // INODO
+    INODO raiz{};
+    raiz.i_uid = 1;
+    raiz.i_gid = 1;
+    raiz.i_size = 0;
+    raiz.i_mtime = time(0);;
+    raiz.i_atime = time(0);
+    raiz.i_ctime = time(0);
+    raiz.i_type = 0;
+    raiz.i_perm = 664;
+    for (int i = 0; i < 15; ++i) {
+        if (i==0){
+            raiz.i_block[i] = sb.s_first_blo;
+        }else{
+            raiz.i_block[i] = -1;
+        }
+    }
+    sb.s_firts_ino+=1;
+    // BLOQUE
+    CARPETABLOCK bloqueRaiz{};
+    sb.s_first_blo+=1;
+    //-- creando archivo users.txt
+    INODO inodoArchivo{};
+    inodoArchivo.i_uid = 1;
+    inodoArchivo.i_gid = 1;
+    inodoArchivo.i_size = 0;
+    inodoArchivo.i_mtime = time(0);;
+    inodoArchivo.i_atime = time(0);
+    inodoArchivo.i_ctime = time(0);
+    inodoArchivo.i_type = 1;
+    inodoArchivo.i_perm = 644;
+    for (int i = 0; i < 15; ++i) {
+        if (i==0){
+            inodoArchivo.i_block[i] = sb.s_first_blo;
+        }else{
+            inodoArchivo.i_block[i] = -1;
+        }
+    }
+    sb.s_firts_ino+=1;
+    // bloque contenido
+    FILEBLOCK usuarios{};
+    strcpy(usuarios.b_content, "1,G,root\n1,U,root,root,123\n");
+    sb.s_first_blo+=1;
+    // actualizando bloque del inodo raiz
+    bloqueRaiz.b_content[0].b_inodo = sb.s_firts_ino-1;
+    strcpy(bloqueRaiz.b_content[0].b_name, "users.txt");
+    //actualizando sb
+    sb.s_free_blocks_count = sb.s_blocks_count - sb.s_first_blo;
+    sb.s_free_inodes_count = sb.s_inodes_count-sb.s_firts_ino;
+
+    // -------------------- ESCRIBIENDO EN EL ARCHIVO ----------------
+    FILE *archivo = fopen(montada.getPath().c_str(), "rb+");
+    // escribienso superbloque
+    fseek(archivo, inicioTodo, SEEK_SET);
+    fwrite(&sb, sizeof(sb), 1, archivo);
+    inicioAnterior = inicioTodo + sizeof(SUPERBLOQUE)+1;
+    fseek(archivo, inicioAnterior, SEEK_SET);
+    // escribiento los bitmaps
+    for (int i = 0; i < noInodos; ++i) {
+        fwrite("0",1,1,archivo);
+    }
+    inicioAnterior+=noInodos+1;
+    fseek(archivo, inicioAnterior, SEEK_SET);
+    for (int i = 0; i < noBloques; ++i) {
+        fwrite("0",1,1,archivo);
+    }
+
+    // actualizando bitmabs
+    fseek(archivo, sb.s_bm_inode_start, SEEK_SET);
+    for (int i = 0; i < sb.s_firts_ino; ++i) {
+        fwrite("1", 1,1, archivo);
+    }
+    fseek(archivo, sb.s_bm_block_start, SEEK_SET);
+    for (int i = 0; i < sb.s_first_blo; ++i) {
+        fwrite("1", 1,1, archivo);
+    }
+    // escribiendo inodos
+    fseek(archivo, sb.s_inode_start, SEEK_SET);
+    fwrite(&raiz, sizeof(raiz), 1, archivo);
+    fwrite(&inodoArchivo, sizeof(inodoArchivo),1,archivo);
+    // escribiendo bloques
+    fseek(archivo, sb.s_block_start, SEEK_SET);
+    fwrite(&bloqueRaiz, sizeof(bloqueRaiz), 1, archivo);
+    fwrite(&usuarios, sizeof(usuarios), 1, archivo);
+
+    CARPETABLOCK aux{};
+    fseek(archivo, sb.s_block_start, SEEK_SET);
+    fread(&aux, sizeof(aux), 1, archivo);
+    return true;
+}
+
 bool makefilesystem(string id, string type, string tipo, list<montadas> *listaMontadas){
     bool encontrado=false;
     montadas montada; int tipoSistema;
@@ -600,7 +732,7 @@ bool makefilesystem(string id, string type, string tipo, list<montadas> *listaMo
     if (tipo.empty()) tipo = "2fs";
     if (type.empty()) type="full";
     if (tipo=="3fs"){
-        tipoSistema = 3;
+        return mk3Filesystem(id, type, tipo, montada);
     }else{
         tipoSistema = 2;
     }
@@ -734,3 +866,5 @@ bool makefilesystem(string id, string type, string tipo, list<montadas> *listaMo
     fread(&aux, sizeof(aux), 1, archivo);
     return true;
 }
+
+
