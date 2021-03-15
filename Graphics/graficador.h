@@ -17,5 +17,6 @@ void graficarSB(std::string path, std::string nombre, string pathResultante);
 void graficarBmInode(std::string path, std::string nombre, string pathDisco);
 void graficarBmBlock(std::string path, std::string nombre, string pathDisco);
 void graficarUssersTxt(std::string path, std::string nombre, std::string fileName, list<montadas> *listaMontadas);
+void listarMontadas(list<montadas> *listaMontadas);
 
 #endif //PROYECTO_GRAFICADOR_H

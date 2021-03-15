@@ -316,3 +316,9 @@ void graficarUssersTxt(std::string path, std::string idPart, std::string fileNam
         cout << "   -- Ocurrio un error al crear la particion --" << endl;
     }
 }
+
+void listarMontadas(list<montadas> *listaMontadas){
+    for (montadas mt: *listaMontadas){
+        cout <<" idMontada: " +mt.getId() + " NombreParticion: "+mt.getName()+" Ubicacion: "+mt.getPath()<<endl;
+    }
+}

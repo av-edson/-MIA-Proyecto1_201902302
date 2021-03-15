@@ -59,6 +59,10 @@ void readArguments(std::array<std::string, 12> lista, list<montadas> *listaMonta
         case 11:
                 resultFuction = mkGroupUsser(lista[6], listaMontadas, usuarioActual, idParticionActiba);
             break;
+        case 12:
+            listarMontadas(listaMontadas);
+            resultFuction = true;
+            break;
         default:
             resultFuction = true;
     }

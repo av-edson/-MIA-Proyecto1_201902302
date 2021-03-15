@@ -83,7 +83,7 @@ int yyerror(const char* msg){
 
 %%
 
-ACTION: show{showArguments(&data);}
+ACTION: show{cleanStruct(&data, 12); addSize(3, &data, 12);}
           | pausado {Pause();}
           | comentario {printf(" com: %s\n", $1);}
           | READFILE

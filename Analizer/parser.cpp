@@ -1471,7 +1471,7 @@ yyreduce:
     {
   case 2:
 #line 86 "sin.y"
-            {showArguments(&data);}
+            {cleanStruct(&data, 12); addSize(3, &data, 12);}
 #line 1476 "parser.cpp"
     break;
 

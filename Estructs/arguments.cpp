@@ -14,6 +14,9 @@
  *  66- graficar
  *  8- login
  *  9- logout
+ *  - 10 mkusr
+ *  -11 mkgrp
+ *  12 -showMounts
  */
 using namespace std;
 
