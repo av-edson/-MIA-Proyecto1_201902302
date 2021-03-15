@@ -10,6 +10,6 @@
 #include "list"
 
 
-void readArguments(std::array<std::string, 11> lista, list<montadas> *listaMontadas, string *usuarioActual);
+void readArguments(std::array<std::string, 12>lista, list<montadas> *listaMontadas, string *usuarioActual,string *idParticionActiba);
 
 #endif

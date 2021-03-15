@@ -25,6 +25,8 @@ CMakeFiles/Proyecto.dir/Graphics/graficador.cpp.o
  /home/edson/CLionProjects/Proyecto/Estructs/fileSistemStructs.h
  /home/edson/CLionProjects/Proyecto/Graphics/graficador.cpp
  /home/edson/CLionProjects/Proyecto/Graphics/graficador.h
+ /home/edson/CLionProjects/Proyecto/Modules/usserModule.h
+ /home/edson/CLionProjects/Proyecto/montadas.h
 CMakeFiles/Proyecto.dir/Modules/UsserModule.cpp.o
  /home/edson/CLionProjects/Proyecto/Estructs/diskStructs.h
  /home/edson/CLionProjects/Proyecto/Estructs/fileSistemStructs.h
@@ -40,9 +42,12 @@ CMakeFiles/Proyecto.dir/Modules/diskModule.cpp.o
 CMakeFiles/Proyecto.dir/main.cpp.o
  /home/edson/CLionProjects/Proyecto/Analizer/parser.h
  /home/edson/CLionProjects/Proyecto/Analizer/scanner.h
+ /home/edson/CLionProjects/Proyecto/Estructs/diskStructs.h
+ /home/edson/CLionProjects/Proyecto/Estructs/fileSistemStructs.h
  /home/edson/CLionProjects/Proyecto/Flow/rooter.h
  /home/edson/CLionProjects/Proyecto/Graphics/graficador.h
  /home/edson/CLionProjects/Proyecto/Modules/diskModule.h
+ /home/edson/CLionProjects/Proyecto/Modules/usserModule.h
  /home/edson/CLionProjects/Proyecto/main.cpp
  /home/edson/CLionProjects/Proyecto/montadas.h
 CMakeFiles/Proyecto.dir/montadas.cpp.o

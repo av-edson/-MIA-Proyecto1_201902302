@@ -1,34 +1,74 @@
 digraph D{node [ shape=none, margin=0 ]
 nuevo [label=<<TABLE  BORDER="1" CELLBORDER="1">
 <tr><td>Nombre</td><td>Valor</td></tr>
-<tr><td colspan="2" BGCOLOR="#9b9b9b">disco1.dk</td></tr>
-<tr><td>mbr_fecha_creacion</td><td>Fri Mar 12 21:21:57 2021
+<tr><td colspan="2" BGCOLOR="#9b9b9b">Disco3.disk</td></tr>
+<tr><td>mbr_fecha_creacion</td><td>Sun Mar 14 07:33:42 2021
 </td></tr>
-<tr><td>mbr_disk_signature</td><td>289384</td></tr>
-<tr><td>disk_fit</td><td>102</td></tr>
-<tr><td>part_name</td><td>Part1</td></tr>
+<tr><td>mbr_disk_signature</td><td>692778</td></tr>
+<tr><td>disk_fit</td><td>98</td></tr>
+<tr><td>part_name</td><td>Part6</td></tr>
 <tr><td>part_status</td><td>1</td></tr>
 <tr><td>part_type</td><td>p</td></tr>
 <tr><td>part_fit</td><td>f</td></tr>
 <tr><td>part_start</td><td>137</td></tr>
-<tr><td>part_size</td><td>10485760</td></tr>
-<tr><td>part_name</td><td>Part2</td></tr>
-<tr><td>part_status</td><td>1</td></tr>
-<tr><td>part_type</td><td>p</td></tr>
-<tr><td>part_fit</td><td>f</td></tr>
-<tr><td>part_start</td><td>10485898</td></tr>
-<tr><td>part_size</td><td>15728640</td></tr>
-<tr><td>part_name</td><td>PartN</td></tr>
-<tr><td>part_status</td><td>1</td></tr>
-<tr><td>part_type</td><td>p</td></tr>
-<tr><td>part_fit</td><td>b</td></tr>
-<tr><td>part_start</td><td>51380365</td></tr>
-<tr><td>part_size</td><td>10240</td></tr>
-<tr><td>part_name</td><td>Part4</td></tr>
+<tr><td>part_size</td><td>3145728</td></tr>
+<tr><td>part_name</td><td>Part7</td></tr>
 <tr><td>part_status</td><td>1</td></tr>
 <tr><td>part_type</td><td>e</td></tr>
 <tr><td>part_fit</td><td>f</td></tr>
-<tr><td>part_start</td><td>36700300</td></tr>
-<tr><td>part_size</td><td>14680064</td></tr>
+<tr><td>part_start</td><td>3145866</td></tr>
+<tr><td>part_size</td><td>10485760</td></tr>
+<tr><td>part_name</td><td></td></tr>
+<tr><td>part_status</td><td>0</td></tr>
+<tr><td>part_type</td><td>0</td></tr>
+<tr><td>part_fit</td><td>0</td></tr>
+<tr><td>part_start</td><td>-1</td></tr>
+<tr><td>part_size</td><td>-1</td></tr>
+<tr><td>part_name</td><td></td></tr>
+<tr><td>part_status</td><td>0</td></tr>
+<tr><td>part_type</td><td>0</td></tr>
+<tr><td>part_fit</td><td>0</td></tr>
+<tr><td>part_start</td><td>-1</td></tr>
+<tr><td>part_size</td><td>-1</td></tr>
+</TABLE>>]
+Part8 [label=<<TABLE  BORDER="1" CELLBORDER="1">
+<tr><td>Nombre</td><td>Valor</td></tr>
+<tr><td colspan="2" BGCOLOR="#9b9b9b">LOGICA</td></tr>
+<tr><td>part_status</td><td>1</td></tr>
+<tr><td>part_fit</td><td>w</td></tr>
+<tr><td>part_star</td><td>3145867</td></tr>
+<tr><td>part_size</td><td>1048576</td></tr>
+<tr><td>part_next</td><td>4194443</td></tr>
+<tr><td>part_name</td><td>Part8</td></tr>
+</TABLE>>]
+Part9 [label=<<TABLE  BORDER="1" CELLBORDER="1">
+<tr><td>Nombre</td><td>Valor</td></tr>
+<tr><td colspan="2" BGCOLOR="#9b9b9b">LOGICA</td></tr>
+<tr><td>part_status</td><td>1</td></tr>
+<tr><td>part_fit</td><td>w</td></tr>
+<tr><td>part_star</td><td>4194443</td></tr>
+<tr><td>part_size</td><td>1048576</td></tr>
+<tr><td>part_next</td><td>5243019</td></tr>
+<tr><td>part_name</td><td>Part9</td></tr>
+</TABLE>>]
+Part10 [label=<<TABLE  BORDER="1" CELLBORDER="1">
+<tr><td>Nombre</td><td>Valor</td></tr>
+<tr><td colspan="2" BGCOLOR="#9b9b9b">LOGICA</td></tr>
+<tr><td>part_status</td><td>1</td></tr>
+<tr><td>part_fit</td><td>f</td></tr>
+<tr><td>part_star</td><td>5243019</td></tr>
+<tr><td>part_size</td><td>1048576</td></tr>
+<tr><td>part_next</td><td>1048577</td></tr>
+<tr><td>part_name</td><td>Part10</td></tr>
+</TABLE>>]
+Part13 [label=<<TABLE  BORDER="1" CELLBORDER="1">
+<tr><td>Nombre</td><td>Valor</td></tr>
+<tr><td colspan="2" BGCOLOR="#9b9b9b">LOGICA</td></tr>
+<tr><td>part_status</td><td>1</td></tr>
+<tr><td>part_fit</td><td>b</td></tr>
+<tr><td>part_star</td><td>1048577</td></tr>
+<tr><td>part_size</td><td>1048576</td></tr>
+<tr><td>part_next</td><td>-1</td></tr>
+<tr><td>part_name</td><td>Part13</td></tr>
 </TABLE>>]
 }

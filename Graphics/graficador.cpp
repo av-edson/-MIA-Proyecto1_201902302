@@ -9,11 +9,23 @@
 #include "fstream"
 using namespace std;
 string getNombrePath(string path);
+extern bool obtenerMontada(string id,list<montadas> *listaMontadas, montadas *montada);
+extern list<char> getContenidoUsser(string idPart, montadas montadaE);
+
 void exportar(string contenido,string nombre){
     ofstream salida;
     salida.open("/home/edson/CLionProjects/Proyecto/resultados/"+nombre);
     salida << contenido;
     salida.close();
+}
+
+EBR getLogica(std::string path, int inicioExtendida){
+    FILE *archivo = fopen(path.c_str(), "rb+");
+    EBR temp{};
+    fseek(archivo, inicioExtendida , SEEK_SET);
+    fread(&temp, sizeof(temp), 1, archivo);
+    fclose(archivo);
+    return temp;
 }
 
 void graficarMBR(std::string path, std::string idDisk){
@@ -27,7 +39,7 @@ void graficarMBR(std::string path, std::string idDisk){
     contenido.append(asctime(gmtime(&tempDisk.mbr_fecha_creacion))); contenido.append("</td></tr>\n");
     contenido.append("<tr><td>mbr_disk_signature</td><td>"+to_string(tempDisk.mbr_disk_signature)+"</td></tr>\n");
     contenido.append("<tr><td>disk_fit</td><td>"+to_string(tempDisk.disk_fit)+"</td></tr>\n");
-    string aux;
+    string aux; PARTITION extendida{};
     for (PARTITION particion: tempDisk.mbr_partition){
         contenido.append("<tr><td>part_name</td><td>");
         contenido.append(particion.part_name); contenido.append("</td></tr>\n");
@@ -36,8 +48,32 @@ void graficarMBR(std::string path, std::string idDisk){
         contenido.append("<tr><td>part_fit</td><td>"+std::string(1,particion.part_fit)+"</td></tr>\n");
         contenido.append("<tr><td>part_start</td><td>"+to_string(particion.part_start)+"</td></tr>\n");
         contenido.append("<tr><td>part_size</td><td>"+to_string(particion.part_size)+"</td></tr>\n");
+        if (particion.part_type=='e'){
+            extendida = particion;
+        }
     }
-    contenido.append("</TABLE>>]\n}");
+
+    EBR logica = getLogica(path, extendida.part_start+1);
+    if (logica.part_star != 0 && (logica.part_fit=='b' || logica.part_fit=='f' || logica.part_fit == 'w')){
+        contenido.append("</TABLE>>]\n");
+    }else{
+        contenido.append("</TABLE>>]\n");
+    }
+    while (logica.part_star != 0 && (logica.part_fit=='b' || logica.part_fit=='f' || logica.part_fit == 'w')){
+        contenido.append(logica.part_name);
+        contenido.append(" [label=<<TABLE  BORDER=\"1\" CELLBORDER=\"1\">\n<tr><td>Nombre</td><td>Valor</td></tr>\n");
+        contenido.append("<tr><td colspan=\"2\" BGCOLOR=\"#9b9b9b\">LOGICA</td></tr>\n");
+        contenido.append("<tr><td>part_status</td><td>"+string(1,logica.part_status)+"</td></tr>\n");
+        contenido.append("<tr><td>part_fit</td><td>"+string(1,logica.part_fit)+"</td></tr>\n");
+        contenido.append("<tr><td>part_star</td><td>"+to_string(logica.part_star)+"</td></tr>\n");
+        contenido.append("<tr><td>part_size</td><td>"+to_string(logica.part_size)+"</td></tr>\n");
+        contenido.append("<tr><td>part_next</td><td>"+to_string(logica.part_next)+"</td></tr>\n");
+        contenido.append("<tr><td>part_name</td><td>");
+        contenido.append(logica.part_name); contenido.append("</td></tr>\n");
+        contenido.append("</TABLE>>]\n");
+        logica = getLogica(path, logica.part_next);
+    }
+    contenido.append("}");
     fclose(archivo);
     exportar(contenido, "mbr.dot");
 }
@@ -199,4 +235,33 @@ void graficarBmBlock(std::string path, std::string nombre){
         contenido.append(string(1,aux)+" ");
     }
     exportar(contenido, "bm_bloques.txt");
+}
+
+string contenidoUssers(list<char> contenido){
+    string aux;
+    for (char ch: contenido){
+        aux.append(string(1,ch));
+    }
+    return aux;
+}
+
+void graficarUssersTxt(std::string path, std::string idPart, std::string fileName, list<montadas> *listaMontadas){
+    try {
+        montadas montada{};
+        if (!obtenerMontada(idPart,listaMontadas, &montada)){
+            cout << "   -No existe particion montada con el id ingresado-"<<endl;
+            return;
+        }
+        if (fileName=="/users.txt"){
+            string contenido = contenidoUssers(getContenidoUsser(idPart, montada));
+            int tamano = contenido.size();
+            cout << tamano << endl;
+            exportar(contenido, "users.txt");
+        }else{
+            cout << "   -Funcion no terminada de implementar-"<<endl;
+            return;
+        }
+    }catch (char pr){
+        cout << "   -- Ocurrio un error al crear la particion --" << endl;
+    }
 }

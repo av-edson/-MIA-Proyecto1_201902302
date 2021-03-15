@@ -1,0 +1,17 @@
+digraph {
+node [shape=rec style=filled height=2];
+graph [ nodesep=0.05];
+label="Disco3.disk"
+MBR
+"1Primaria
+Part6
+20.000000% del disco"
+subgraph cluster1{ label="Extendida"
+"Part8
+6.666667% ""Part9
+6.666667% ""Part10
+6.666667% ""Part13
+6.666667% "}
+"2LIBRE
+13.332457% del disco"
+}

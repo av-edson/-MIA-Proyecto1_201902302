@@ -7,7 +7,7 @@
 struct argumentos data;
 using namespace std;
 
-std::array<std::string, 11> getDatos();
+std::array<std::string, 12> getDatos();
 void cleanEs();
 int Pause();
 int yylex();
@@ -50,6 +50,11 @@ int yyerror(const char* msg){
 %token <other> p_ussr
 %token <other> login
 %token <other> logout
+%token <other> mkusr
+%token <other> mkgrp
+%token <other> p_grp
+%token <text> r_file
+%token <other> p_ruta
 
 /* entradas */
 %token <number> number
@@ -91,6 +96,8 @@ ACTION: show{showArguments(&data);}
           | REPORTS
           | LOGIN_F
           | LOGOUT_F
+          | MKUSR_F
+          | MKGRP_F
         ;
 
 MKDISK_F: mkdisk MKPARAMS;
@@ -144,6 +151,8 @@ REPORTSPARAM: name igual r_mbr {cleanStruct(&data, 66); addNameDisk($3, &data, 6
 		| name igual sb {cleanStruct(&data, 66); addNameDisk($3, &data, 66);}
 		| name igual bm_block {cleanStruct(&data, 66); addNameDisk($3, &data, 66);}
 		| name igual bm_inode {cleanStruct(&data, 66); addNameDisk($3, &data, 66);}
+		| name igual r_file {cleanStruct(&data, 66); addNameDisk($3, &data, 66);}
+		| p_ruta igual e_pdf_path {cleanStruct(&data, 66); addRuta($3, &data, 66);}
 		| path igual e_pdf_path {cleanStruct(&data, 66); addPath($3, &data, 66);}
 		| id igual e_id {cleanStruct(&data, 66); addDiskIde($3, &data, 66);};
 
@@ -163,9 +172,19 @@ LOGINPARAM : p_ussr igual e_name{cleanStruct(&data, 8); addNameDisk($3, &data, 8
 		| p_pass igual number{cleanStruct(&data, 8); addSizeAdd($3, &data, 8);}
 		| id igual e_id{cleanStruct(&data, 8); addDiskIde($3, &data,8);};
 LOGOUT_F: logout{cleanStruct(&data, 9);addSizeAdd(1, &data, 9);};
+
+MKUSR_F: mkusr MKUSR_PARAMS;
+MKUSR_PARAMS: MKUSR_PARAM MKUSR_PARAMS
+		|MKUSR_PARAM;
+MKUSR_PARAM: p_ussr igual e_name{cleanStruct(&data, 10); addNameDisk($3, &data, 10);}
+             	| p_pass igual e_name{cleanStruct(&data, 10); addPath($3, &data, 10);}
+             	| p_pass igual number{cleanStruct(&data, 10); addSizeAdd($3, &data, 10);}
+             	| p_grp igual e_name{cleanStruct(&data, 10); addDiskIde($3, &data, 10);};
+
+MKGRP_F: mkgrp name igual e_name{cleanStruct(&data, 11); addNameDisk($4, &data, 11);};
 %%
-std::array<std::string, 11> getDatos(){
-    std::array<string, 11> datos;
+std::array<std::string, 12> getDatos(){
+    std::array<std::string, 12> datos;
     datos = privateData(&data);
     return datos;
 }

@@ -30,6 +30,7 @@ struct argumentos
     char disk_ides[20];
     char format[3];
     char delet[15];
+    char ruta[200];
 };
 
 void cleanStruct(struct argumentos *entrace, int type){
@@ -45,6 +46,7 @@ void cleanStruct(struct argumentos *entrace, int type){
         strcpy(entrace->disk_ides, "");
         strcpy(entrace->format, "");
         strcpy(entrace->delet, "");
+        strcpy(entrace->ruta, "");
     }
 }
 
@@ -87,6 +89,27 @@ void addPath(char *pathh, struct argumentos *info, int type){
     // printf("  added path--%s", info->path);
 }
 
+void addRuta(char *rutta, struct argumentos *info, int type){
+
+    char aux[200];
+    int tam = strlen(rutta);
+    int indiceAux = 0;
+    for (int i = 0; i < tam; i++)
+    {
+        if (rutta[i] != '\"')
+        {
+            aux[indiceAux] = rutta[i];
+            indiceAux++;
+        }
+
+    }
+    aux[indiceAux] = '\0';
+
+    strcpy(info->ruta, aux);
+    info->function = type;
+    // printf("  added path--%s", info->path);
+}
+
 void addType(char *typee, struct argumentos *info, int type){
     strcpy(info->partition_type, typee);
     info->function = type;
@@ -95,7 +118,21 @@ void addType(char *typee, struct argumentos *info, int type){
 
 
 void addNameDisk(char *names, struct argumentos *info, int type){
-    strcpy(info->name_disk, names);
+    char aux[20];
+    int tam = strlen(names);
+    int indiceAux = 0;
+    for (int i = 0; i < tam; i++)
+    {
+        if (names[i] != '\"')
+        {
+            aux[indiceAux] = names[i];
+            indiceAux++;
+        }
+
+    }
+    aux[indiceAux] = '\0';
+
+    strcpy(info->name_disk, aux);
     info->function = type;
     // printf("    nameDisk added--%s", info->name_disk);
 }
@@ -107,7 +144,20 @@ void addSizeAdd(int size_ad,struct argumentos *info, int type){
 }
 
 void addDiskIde(char *id, struct argumentos *info, int type){
-    strcpy(info->disk_ides, id);
+    char aux[100];
+    int tam = strlen(id);
+    int indiceAux = 0;
+    for (int i = 0; i < tam; i++)
+    {
+        if (id[i] != '\"')
+        {
+            aux[indiceAux] = id[i];
+            indiceAux++;
+        }
+
+    }
+    aux[indiceAux] = '\0';
+    strcpy(info->disk_ides, aux);
     info->function = type;
     // printf("    id disk added--%s", info->disk_ides);
 }
@@ -138,9 +188,9 @@ void showArguments(struct argumentos *info){
     printf(" delete size-- %s", info->delet);
 }
 
-std::array<std::string, 11> privateData(struct argumentos *info){
-    std::array<string, 11> datos;
-    for (int x = 0; x < 11; x++)
+std::array<std::string, 12> privateData(struct argumentos *info){
+    std::array<string, 12> datos;
+    for (int x = 0; x < 12; x++)
     {
         switch (x)
         {
@@ -177,6 +227,9 @@ std::array<std::string, 11> privateData(struct argumentos *info){
         case 10:
             datos[x] = info->delet;
             break;
+            case 11:
+                datos[x] = info->ruta;
+                break;
         }
     }
     

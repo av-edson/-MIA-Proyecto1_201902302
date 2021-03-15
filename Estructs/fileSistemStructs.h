@@ -54,4 +54,11 @@ struct POINTERBLOCK{
     int b_pointers[16];
 };
 
+struct JOURNALING{
+    int opcion;
+    char nombre[30];
+    char contenido[200];
+    time_t fecha;
+};
+
 #endif //PROYECTO_FILESISTEMSTRUCTS_H

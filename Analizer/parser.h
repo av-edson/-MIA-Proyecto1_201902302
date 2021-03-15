@@ -78,18 +78,23 @@ extern int yydebug;
     p_ussr = 284,
     login = 285,
     logout = 286,
-    number = 287,
-    e_path = 288,
-    e_pdf_path = 289,
-    e_fit = 290,
-    e_units = 291,
-    e_type = 292,
-    e_delete = 293,
-    e_name = 294,
-    e_id = 295,
-    fs_option = 296,
-    bm_inode = 297,
-    bm_block = 298
+    mkusr = 287,
+    mkgrp = 288,
+    p_grp = 289,
+    r_file = 290,
+    p_ruta = 291,
+    number = 292,
+    e_path = 293,
+    e_pdf_path = 294,
+    e_fit = 295,
+    e_units = 296,
+    e_type = 297,
+    e_delete = 298,
+    e_name = 299,
+    e_id = 300,
+    fs_option = 301,
+    bm_inode = 302,
+    bm_block = 303
   };
 #endif
 
@@ -97,14 +102,14 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 72 "sin.y"
+#line 77 "sin.y"
 
     int number;
     char text[200];
     char entrace[12];
     int other;
 
-#line 108 "parser.h"
+#line 113 "parser.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

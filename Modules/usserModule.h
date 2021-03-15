@@ -13,8 +13,11 @@
 
 using namespace std;
 
-bool loginUsser(string usser, string password, string idPart, list<montadas> *listaMontadas, std::string *usuarioActual);
+bool loginUsser(string usser, string password, string idPart, list<montadas> *listaMontadas, std::string *usuarioActual, string *idParticionActiba);
 
-bool logoutUsser(string *usuarioActual);
+bool logoutUsser(string *usuarioActual, string *idParticionActiba);
+
+bool mkGroupUsser(string nombreGrupo, list<montadas> *listaMontadas, std::string *usuarioActual, string *idParticionActiba);
+bool mkUsserVoid(string nombreUsuario, string grupoUsuario, string passUsuario, list<montadas> *listaMontadas, std::string *usuarioActual, string *idParticionActiba);
 
 #endif //PROYECTO_USSERMODULE_H

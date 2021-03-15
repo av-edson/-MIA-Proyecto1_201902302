@@ -34,7 +34,7 @@ F_LOGIN     "login"
 F_LOGOUT    "logout"
 F_MKGRP     "mkgrp"
 F_RMGRP     "rmgrp"
-F_MKURS     "mkurs"
+F_MKURS     "mkusr"
 F_RMUSR     "rmusr"
 
 /*ADMIND DE PERSIMOS Y ARCHIVOS*/
@@ -94,7 +94,7 @@ DISK_EXTENTION1  "dk"
 DISK_EXTENTION2  "disk"
 SCRIPT_EXTENTION    "script"
 NAME_FILE   {LETRAS}({LETRAS}|{ENTERO})*"."({DISK_EXTENTION2}|{DISK_EXTENTION1}|{SCRIPT_EXTENTION})
-REP_NAME_FILE {LETRAS}({LETRAS}|{ENTERO})*(".pdf"|".jpg")
+REP_NAME_FILE {LETRAS}({LETRAS}|{ENTERO})*(".pdf"|".jpg"|".txt")
 DELIMITADOR [\t\r\f" "]
 COMENTARIO  #([^#|^\n|^\r\n])*(#)?
 
@@ -116,6 +116,7 @@ COMENTARIO  #([^#|^\n|^\r\n])*(#)?
  "rep"          {strcpy(yylval.text, yytext); return(rep);}
  "mbr"        {strcpy(yylval.text, yytext); return(r_mbr);}
  "disk"        {strcpy(yylval.text, yytext); return(r_disk);}
+ "file"         {strcpy(yylval.text, yytext); return(r_file);}
    "2fs"        {strcpy(yylval.text, yytext); return(fs_option);}
    "3fs"        {strcpy(yylval.text, yytext); return(fs_option);}
    "sb"         {strcpy(yylval.text, yytext); return(sb);}
@@ -124,6 +125,8 @@ COMENTARIO  #([^#|^\n|^\r\n])*(#)?
     /*---------- para login */
  "-pwd"     {strcpy(yylval.text, yytext); return(p_pass);}
  "-usr"     {strcpy(yylval.text, yytext); return(p_ussr);}
+ "-grp"     {strcpy(yylval.text, yytext); return(p_grp);}
+ "-ruta"     {strcpy(yylval.text, yytext); return(p_ruta);}
 
 {F_PAUSE}   {return(pausado);}
 {F_MKDISK} {return(mkdisk);}
@@ -135,9 +138,9 @@ COMENTARIO  #([^#|^\n|^\r\n])*(#)?
 
 {F_LOGIN}   {return(login);}
 {F_LOGOUT}  {return(logout);}
-{F_MKGRP}   {printf("Funcion mkgrp %s ", yytext);}
+{F_MKGRP}   {return(mkgrp);}
 {F_RMGRP}   {printf("Funcion rmgrp %s ", yytext);}
-{F_MKURS}   {printf("Funcion mkurs %s ", yytext);}
+{F_MKURS}   {return(mkusr);}
 {F_RMUSR}   {printf("Funcion rmusr %s ", yytext);}
 
 {F_CHMOD}   {printf("Funcion chmod %s ", yytext);}

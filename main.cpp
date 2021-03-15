@@ -8,22 +8,23 @@
 #include "montadas.h"
 
 using namespace std;
-extern std::array<std::string, 11> getDatos();
+extern std::array<std::string, 12> getDatos();
 extern void cleanEs();
 
 void mostrarMenu();
 string pedirEntrada();
-void leerEntrada(string entrada, list<montadas> *listaMontadas, string *usuarioActual);
-void mostrarDatos(std::array<std::string, 11> lista);
-void readFile(string path, list<montadas> *listaMontadas, string *usuarioActual);
+void leerEntrada(string entrada, list<montadas> *listaMontadas, string *usuarioActual, string *idParticionActiba);
+void mostrarDatos(std::array<std::string, 12> lista);
+void readFile(string path, list<montadas> *listaMontadas, string *usuarioActual, string *idParticionActiba);
 
 int main(){
     list<montadas> listaMontadas;
     string usuarioActual="";
+    string idPartActiva="";
     mostrarMenu();
     while (true)
     {
-        leerEntrada(pedirEntrada(), &listaMontadas, &usuarioActual);
+        leerEntrada(pedirEntrada(), &listaMontadas, &usuarioActual, &idPartActiva);
     }
     return 0;
 }
@@ -44,21 +45,21 @@ string pedirEntrada(){
     return input;
 }
 
-void leerEntrada(string entrada, list<montadas> *lista, string *usuarioActual){
+void leerEntrada(string entrada, list<montadas> *lista, string *usuarioActual, string *idParticion){
     // cout << "       leyendo--" << entrada  << endl;
     YY_BUFFER_STATE buffer = yy_scan_string(entrada.c_str());
     if (yyparse() == 0)
     {
-        std::array<std::string, 11> datos;
+        std::array<std::string, 12> datos;
         datos = getDatos();
         if (datos[0] == "7")
         {
-            readFile(datos[4], lista, usuarioActual);
+            readFile(datos[4], lista, usuarioActual, idParticion);
         }
         else{
             // mandando el array para su procesamiento
 
-            readArguments(datos, lista, usuarioActual);
+            readArguments(datos, lista, usuarioActual, idParticion);
         }
 
 
@@ -76,7 +77,7 @@ void mostrarDatos(std::array<std::string, 11> lista){
     cout << "\n";
 }
 
-void readFile(string path, list<montadas> *lista, string *usuarioActual){
+void readFile(string path, list<montadas> *lista, string *usuarioActual, string *idParticion){
     ifstream archivo(path);
     if (archivo.good())
     {
@@ -93,7 +94,7 @@ void readFile(string path, list<montadas> *lista, string *usuarioActual){
                     // // pidiendo array de los datos almacenados por los analizadores
                     // mostrarDatos(datos);
                     // mandando el array para su procesamiento
-                    readArguments( getDatos(), lista, usuarioActual);
+                    readArguments( getDatos(), lista, usuarioActual, idParticion);
                     cout << endl;
                 }
                 else{

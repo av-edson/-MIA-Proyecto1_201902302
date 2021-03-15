@@ -685,7 +685,7 @@ bool makefilesystem(string id, string type, string tipo, list<montadas> *listaMo
     sb.s_firts_ino+=1;
     // bloque contenido
     FILEBLOCK usuarios{};
-    strcpy(usuarios.b_content, "1,G,root,\n1,U,root,root,123\n");
+    strcpy(usuarios.b_content, "1,G,root\n1,U,root,root,123\n");
     sb.s_first_blo+=1;
     // actualizando bloque del inodo raiz
     bloqueRaiz.b_content[0].b_inodo = sb.s_firts_ino-1;
